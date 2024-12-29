@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="@drawable/background_gradient"
+    tools:context=".screens.Register"
+    android:padding="16dp"
+    android:layoutDirection="rtl"> <!-- כיווניות ימנית לשמאל עבור עברית -->
+
+    <!-- כותרת עיקרית -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:text="הרשמה לטיול"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="#2C6B4F" /> <!-- צבע טבעי, ירוק כהה -->
+
+    <!-- שם פרטי -->
+    <EditText
+        android:id="@+id/etFname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="שם פרטי"
+        android:inputType="text"
+        android:textColor="#8B5A2B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:backgroundTint="#2C6B4F"
+         /> <!-- אייקון של אדם -->
+
+    <!-- שם משפחה -->
+    <EditText
+        android:id="@+id/etLname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="שם משפחה"
+        android:inputType="text"
+        android:textColor="#8B5A2B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:backgroundTint="#2C6B4F"
+        />
+
+    <!-- מספר טלפון -->
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="מספר טלפון"
+        android:inputType="phone"
+        android:textColor="#8B5A2B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:backgroundTint="#2C6B4F"
+         />
+
+    <!-- Spinner של עיר -->
+    <Spinner
+        android:id="@+id/spcity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#2C6B4F"
+        android:entries="@array/city" />
+
+    <!-- אימייל -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="אימייל"
+        android:inputType="textEmailAddress"
+        android:textColor="#8B5A2B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:backgroundTint="#2C6B4F"
+        />
+
+    <!-- סיסמה -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="סיסמה"
+        android:inputType="textPassword"
+        android:textColor="#8B5A2B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:backgroundTint="#2C6B4F"
+       />
+
+    <!-- כפתור הרשמה -->
+    <Button
+        android:id="@+id/btnReg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="הירשם"
+        android:backgroundTint="#FFC107"
+    android:textColor="#FFFFFF" />
+
+    <!-- כפתור חזור אחורה -->
+    <Button
+        android:id="@+id/btnGoToMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="חזור אחורה"
+        android:backgroundTint="#FF7043"
+    android:textColor="#FFFFFF" />
+</LinearLayout>

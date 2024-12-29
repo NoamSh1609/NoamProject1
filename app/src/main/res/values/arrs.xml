@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="city">
+        <item>באר שבע</item>
+        <item>בית שאן</item>
+        <item>בית שמש</item>
+        <item>הוד השרון</item>
+        <item>הרצליה</item>
+        <item>חדרה</item>
+        <item>חולון</item>
+        <item>חיפה</item>
+        <item>טבריה</item>
+        <item>יפו</item>
+        <item>ירושלים</item>
+        <item>כפר סבא</item>
+        <item>לוד</item>
+        <item>נתניה</item>
+        <item>נצרת</item>
+        <item>נתיבות</item>
+        <item>עכו</item>
+        <item>פתח תקווה</item>
+        <item>צפת</item>
+        <item>קצרין</item>
+        <item>קריית גת</item>
+        <item>קריית שמונה</item>
+        <item>תל אביב-יפו</item>
+        <item>רמת גן</item>
+        <item>רמת השרון</item>
+        <item>ראשון לציון</item>
+        <item>רעננה</item>
+        <item>שדרות</item>
+        <item>אשקלון</item>
+        <item>אשדוד</item>
+        <item>עפולה</item>
+        <item>עזריה</item>
+        <item>מודיעין</item>
+        <item>רחובות</item>
+        <item>זכרון יעקב</item>
+        <item>הוד השרון</item>
+        <item>תל אביב</item>
+        <item>חולון</item>
+        <item>פ"ת</item>
+        <item>נהריה</item>
+        <item>ירוחם</item>
+        <item>קריית אונו</item>
+        <item>אילת</item>
+        <item>אריאל</item>
+        <item>אשקלון</item>
+        <item>בני ברק</item>
+        <item>בני ברק</item>
+        <item>גדרה</item>
+        <item>גבעתיים</item>
+        <item>דרום תל אביב</item>
+        <item>דימונה</item>
+        <item>חולון</item>
+        <item>חיפה</item>
+        <item>יבנה</item>
+        <item>יפו</item>
+        <item>יהוד</item>
+        <item>כפר יונה</item>
+        <item>כפר סבא</item>
+        <item>לוד</item>
+        <item>מגדל העמק</item>
+        <item>מעלות תרשיחא</item>
+        <item>נהריה</item>
+        <item>נצרת</item>
+        <item>נתיבות</item>
+        <item>עכו</item>
+        <item>עפולה</item>
+        <item>ערד</item>
+        <item>פתח תקווה</item>
+        <item>צפת</item>
+        <item>קריית מוצקין</item>
+        <item>קריית שמונה</item>
+        <item>רמלה</item>
+        <item>רחובות</item>
+        <item>רעננה</item>
+        <item>רמת גן</item>
+        <item>ראשון לציון</item>
+        <item>שדרות</item>
+        <item>תל אביב</item>
+        <item>תל אביב-יפו</item>
+        <item>חדרה</item>
+        <item>נתניה</item>
+        <item>חיפה</item>
+        <item>אשדוד</item>
+        <item>כפר סבא</item>
+        <item>ירושלים</item>
+        <item>חולון</item>
+        <item>רמת השרון</item>
+        <item>רעננה</item>
+        <item>כפר תבור</item>
+        <item>ירוחם</item>
+        <item>דימונה</item>
+        <item>עפולה</item>
+        <item>שדרות</item>
+        <item>קריית גת</item>
+        <item>מעלה אדומים</item>
+        <item>זכרון יעקב</item>
+        <item>רמלה</item>
+        <item>עכו</item>
+        <item>מודיעין</item>
+        <item>טבריה</item>
+        <item>תל אביב-יפו</item>
+        <item>חולון</item>
+        <item>נצרת עילית</item>
+    </string-array>
+</resources>
+
+
+
+
+
+
+
+
+
+
