@@ -4,6 +4,8 @@ public class Attraction {
     protected String id,name, type, city,detail,area;
     protected int capcity;
     protected double rating;
+    protected  double sumRate;
+    protected  int numRate;
 
     public String getdetail() {
         return detail;
@@ -21,19 +23,27 @@ public class Attraction {
         this.area = area;
     }
 
-    public Attraction(String id, String name, String type, String city, int capcity, double rating, String detail, String area) {
+
+    public Attraction(String id, String name, String type, String city, String detail, String area, int capcity, double rating, double sumRate, int numRate) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.city = city;
+        this.detail = detail;
+        this.area = area;
         this.capcity = capcity;
         this.rating = rating;
-        this.detail=detail;
-        this.area=area;
+        this.sumRate = sumRate;
+        this.numRate = numRate;
     }
 
-    public Attraction(int capcity) {
+    public Attraction( int capcity) {
+        this.capcity=capcity;
 
+    }
+
+
+    public Attraction() {
     }
 
     public String getId() {
@@ -84,6 +94,30 @@ public class Attraction {
         this.rating = rating;
     }
 
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public double getSumRate() {
+        return sumRate;
+    }
+
+    public void setSumRate(double sumRate) {
+        this.sumRate = sumRate;
+    }
+
+    public int getNumRate() {
+        return numRate;
+    }
+
+    public void setNumRate(int numRate) {
+        this.numRate = numRate;
+    }
+
     @Override
     public String toString() {
         return "Attraction{" +
@@ -91,11 +125,12 @@ public class Attraction {
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", city='" + city + '\'' +
+                ", detail='" + detail + '\'' +
+                ", area='" + area + '\'' +
                 ", capcity=" + capcity +
                 ", rating=" + rating +
-                ",detail="+detail+
-                ",detail="+area+
-
+                ", sumRate=" + sumRate +
+                ", numRate=" + numRate +
                 '}';
     }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="10dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- שם היעד -->
+    <TextView
+        android:id="@+id/attractionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="שם היעד"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <!-- עיר היעד -->
+    <TextView
+        android:id="@+id/attractionCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="עיר היעד"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        />
+
+    <!-- דירוג היעד -->
+    <TextView
+        android:id="@+id/attractionRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="דירוג: 0.0"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"/>
+    <Button
+        android:id="@+id/btmDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF7043"
+        android:text="עוד מידע"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:shadowColor="#FF7043"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="6" />
+
+
+</LinearLayout>

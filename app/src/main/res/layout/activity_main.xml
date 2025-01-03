@@ -69,5 +69,20 @@
         android:shadowDx="0"
         android:shadowDy="2"
         android:shadowRadius="6" />
+    <Button
+        android:id="@+id/btnAttractionActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#4CAF50"
+        android:text="יעדים"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:shadowColor="#4CAF50"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="6" />
 
 </LinearLayout>

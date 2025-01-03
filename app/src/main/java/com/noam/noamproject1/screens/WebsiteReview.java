@@ -1,20 +1,28 @@
 package com.noam.noamproject1.screens;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.noam.noamproject1.R;
 
+import java.util.ArrayList;
+
 public class WebsiteReview extends AppCompatActivity {
 
     private EditText reviewEditText;
     private RatingBar ratingBar;
     private Button submitReviewButton;
+    private TextView reviewsTextView;  // TextView חדש להצגת כל הביקורות
+
+    // רשימה לאחסון כל הביקורות שנשלחו
+    private ArrayList<String> reviewsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,7 @@ public class WebsiteReview extends AppCompatActivity {
         reviewEditText = findViewById(R.id.reviewEditText);
         ratingBar = findViewById(R.id.ratingBar);
         submitReviewButton = findViewById(R.id.submitReviewButton);
+        reviewsTextView = findViewById(R.id.reviewsTextView); // אתחול של ה-TextView להצגת כל הביקורות
 
         // פעולה כשנלחץ על כפתור שליחת חוות דעת
         submitReviewButton.setOnClickListener(new View.OnClickListener() {
@@ -45,12 +54,29 @@ public class WebsiteReview extends AppCompatActivity {
                     return;
                 }
 
-                // הוספת לוגיקה לשליחה/שימור של חוות הדעת
-                // לדוגמה, אתה יכול לשלוח את המידע לשרת או לשמור את חוות הדעת במבנה מקומי
+                // הוספת חוות הדעת לרשימה
+                String fullReview = "דרוג: " + rating + "\n" + reviewText;
+                reviewsList.add(fullReview);
 
+                // עדכון ה-UI עם כל הביקורות
+                displayReviews();
+
+                // הצגת הודעה תודה
                 Toast.makeText(WebsiteReview.this, "תודה על חוות הדעת שלך!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-}
 
+    // פונקציה לעדכון ה-UI עם כל הביקורות
+    private void displayReviews() {
+        StringBuilder allReviews = new StringBuilder();
+
+        // מבנה כל הביקורות להצגה ב-TextView
+        for (String review : reviewsList) {
+            allReviews.append(review).append("\n\n");
+        }
+
+        // הצגת כל הביקורות ב-TextView
+        reviewsTextView.setText(allReviews.toString());
+    }
+}

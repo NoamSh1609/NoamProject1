@@ -52,8 +52,12 @@
         android:text="שלח חוות דעת"
         android:background="?android:attr/colorAccent"/>
 
+    <!-- TextView להצגת כל הביקורות -->
+    <TextView
+        android:id="@+id/reviewsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="הביקורות שלך יופיעו כאן"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"/>
 </LinearLayout>
-
-
-
-
