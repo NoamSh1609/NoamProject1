@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="city">
+    <string-array name="Arrcity">
         <item>באר שבע</item>
         <item>בית שאן</item>
         <item>בית שמש</item>
@@ -103,8 +103,40 @@
         <item>טבריה</item>
         <item>תל אביב-יפו</item>
         <item>חולון</item>
-        <item>נצרת עילית</item>
     </string-array>
+
+    <string-array name="spAttractionCity">
+        <item>מצדה</item>
+        <item>קיבוץ קליה</item>
+        <item>אילת</item>
+        <item>תל אביב</item>
+        <item>רמת גן</item>
+        <item>תל אביב</item>
+        <item>פארן</item>
+        <item>כפר הכנרת</item>
+        <item>תל אביב</item>
+        <item>אילת</item>
+    </string-array>
+    <string-array name="spAttractionType">
+        <item>היסטורית ותרבותית</item>
+        <item>חוף ים ובריאות</item>
+        <item>טבעית וארכיאולוגית</item>
+        <item>תרבותית וחינוכית</item>
+        <item>חינוכית וגן חיות</item>
+        <item>אמנותית</item>
+        <item>חקלאית וטעימות</item>
+        <item>טבעית עם פעילויות ספורט ימי</item>
+        <item>חינוכית עם פעילויות ספורטיביות</item>
+        <item>אקסטרימית ותיירותית ימית</item>
+    </string-array>
+
+
+    <string-array name="spAttractionArea">
+        <item>צפון</item>
+        <item>מרכז</item>
+        <item>דרום</item>
+    </string-array>
+
 </resources>
 
 

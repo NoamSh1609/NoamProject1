@@ -8,7 +8,7 @@
     tools:context=".screens.AddAttraction">
 
     <TextView
-        android:id="@+id/addAttraction"
+        android:id="@+id/tvaddAttraction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="הוספת אטרקציה"
@@ -16,41 +16,31 @@
         tools:layout_editor_absoluteY="36dp" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/etAttractionName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
+        android:text=""
         tools:layout_editor_absoluteX="109dp"
         tools:layout_editor_absoluteY="80dp" />
 
-    <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="139dp" />
-
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spAttractionCity"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="192dp" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spAttractionType"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="255dp" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/spAttractionArea"
         android:layout_width="339dp"
         android:layout_height="33dp"
         tools:layout_editor_absoluteX="36dp"
@@ -65,7 +55,7 @@
         tools:layout_editor_absoluteY="370dp" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/etAttractionDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -73,11 +63,25 @@
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="407dp" />
 
+    <EditText
+        android:id="@+id/etAttractionCapicity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="139dp" />
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
         tools:layout_editor_absoluteX="152dp"
         tools:layout_editor_absoluteY="506dp" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

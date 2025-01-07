@@ -1,6 +1,9 @@
 package com.noam.noamproject1.screens;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.noam.noamproject1.R;
 
 public class AddAttraction extends AppCompatActivity {
+    EditText etAttractionCapicity, etAttractionDetails,etAttractionName;
+    Button btAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +27,10 @@ public class AddAttraction extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Spinner spAttractionType = findViewById(R.id.spAttractionType);
+        Spinner spAttractionArea = findViewById(R.id.spAttractionArea);
+        Spinner spAttractionCity = findViewById(R.id.spAttractionCity);
+
+
     }
 }
