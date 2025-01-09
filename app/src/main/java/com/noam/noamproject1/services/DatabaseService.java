@@ -6,11 +6,9 @@ import androidx.annotation.Nullable;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.noam.noamproject1.models.User;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /// a service to interact with the Firebase Realtime Database.
@@ -123,6 +121,31 @@ public class DatabaseService {
 
     // end of private methods for reading and writing data
 
+    // public methods to interact with the database
 
+    /// create a new user in the database
+    /// @param user the user object to create
+    /// @param callback the callback to call when the operation is completed
+    ///              the callback will receive void
+    ///            if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see User
+    public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("Users/" + user.getId(), user, callback);
+    }
+
+
+    /// get a user from the database
+    /// @param uid the id of the user to get
+    /// @param callback the callback to call when the operation is completed
+    ///               the callback will receive the user object
+    ///             if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see User
+    public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
+        getData("Users/" + uid, User.class, callback);
+    }
 
 }

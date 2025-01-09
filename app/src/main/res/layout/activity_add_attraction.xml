@@ -11,77 +11,138 @@
         android:id="@+id/tvaddAttraction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="25dp"
         android:text="הוספת אטרקציה"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="36dp" />
+        app:layout_constraintBottom_toTopOf="@+id/etAttractionName"
+        app:layout_constraintEnd_toEndOf="@+id/etAttractionName"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etAttractionName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
         android:ems="10"
         android:inputType="text"
-        android:text=""
-        tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="80dp" />
+        android:hint="שם של אטרקציה"
+
+        app:layout_constraintBottom_toTopOf="@+id/etAttractionCapicity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvaddAttraction" />
 
     <Spinner
         android:id="@+id/spAttractionCity"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="192dp" />
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="39dp"
+        android:entries="@array/spAttractionCity"
+        app:layout_constraintBottom_toTopOf="@+id/spAttractionType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAttractionCapicity" />
 
     <Spinner
         android:id="@+id/spAttractionType"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="255dp" />
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="16dp"
+        android:entries="@array/spAttractionType"
+        app:layout_constraintBottom_toTopOf="@+id/spAttractionArea"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spAttractionCity" />
 
     <Spinner
         android:id="@+id/spAttractionArea"
-        android:layout_width="339dp"
-        android:layout_height="33dp"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="295dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="9dp"
+        android:entries="@array/spAttractionArea"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spAttractionType" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="179dp"
-        tools:layout_editor_absoluteY="370dp" />
+        android:layout_marginBottom="30dp"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/etAttractionDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spAttractionArea" />
 
     <EditText
         android:id="@+id/etAttractionDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="פרטים לגביי האטרקציה"
+        android:layout_marginBottom="46dp"
         android:ems="10"
         android:inputType="number"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="407dp" />
+        app:layout_constraintBottom_toTopOf="@+id/select_image_button"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/etAttractionCapicity"
+        android:hint="כמה אנשים נכנסים באטרקציה "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="139dp" />
+        app:layout_constraintBottom_toTopOf="@+id/spAttractionCity"
+        app:layout_constraintEnd_toEndOf="@+id/etAttractionName"
+        app:layout_constraintTop_toBottomOf="@+id/etAttractionName" />
 
     <Button
         android:id="@+id/btAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="138dp"
         android:text="Button"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="506dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/select_image_button" />
 
 
+    <ImageButton
+        android:id="@+id/select_image_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="36dp"
+        android:layout_weight="0.5"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Select Image"
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toTopOf="@+id/btAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAttractionDetails" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="תמונה מהגלריה"
+        app:layout_constraintEnd_toEndOf="@+id/select_image_button"
+        app:layout_constraintTop_toTopOf="@+id/select_image_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

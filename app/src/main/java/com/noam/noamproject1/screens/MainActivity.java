@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.noam.noamproject1.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity;
+    Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity,btnAddAttraction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLoginMain = findViewById(R.id.btnLoginMain);
         btnWebsiteR= findViewById(R.id.btnWebsiteReview);
         btnAttractionActivity=findViewById(R.id.btnAttractionActivity);
+        btnAddAttraction=findViewById(R.id.btnAddAttraction);
+        btnAddAttraction.setOnClickListener(this);
         btnform.setOnClickListener(this);
         btnLoginMain.setOnClickListener(this);
         btnWebsiteR.setOnClickListener(this);
@@ -57,6 +59,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent go = new Intent(this, AttractionsActivity.class); // מעבר ל-WebsiteReview
         startActivity(go);
         }
+        else if (view ==btnAddAttraction ) {
+            Intent go = new Intent(this, AddAttraction.class); // מעבר ל-WebsiteReview
+            startActivity(go);
+        }
+
 
     }
 

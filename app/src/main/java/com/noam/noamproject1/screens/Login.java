@@ -20,8 +20,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.noam.noamproject1.R;
+import com.noam.noamproject1.models.User;
 import com.noam.noamproject1.services.AuthenticationService;
 import com.noam.noamproject1.services.DatabaseService;
+import com.noam.noamproject1.utils.SharedPreferencesUtil;
 import com.noam.noamproject1.utils.Validator;
 
 
@@ -82,8 +84,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 public void onCompleted(String id) {
                     Log.d("TAG", "signInWithCustomToken:success");
 
-                    Intent goToMain = new Intent(Login.this, MainActivity.class);
-                    startActivity(goToMain);
+                    databaseService.getUser(id, new DatabaseService.DatabaseCallback<User>() {
+                        @Override
+                        public void onCompleted(User user) {
+                            SharedPreferencesUtil.saveUser(Login.this, user);
+                            Intent goToMain = new Intent(Login.this, MainActivity.class);
+                            startActivity(goToMain);
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+                            authenticationService.signOut();
+                        }
+                    });
+
+
                 }
 
                 @Override

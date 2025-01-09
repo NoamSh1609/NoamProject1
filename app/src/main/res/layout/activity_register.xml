@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="#2C6B4F"
-        android:entries="@array/city" />
+        android:entries="@array/spAttractionCity"/>
 
     <!-- אימייל -->
     <EditText
