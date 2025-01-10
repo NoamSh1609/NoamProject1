@@ -180,7 +180,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             etEmail.setError(msg);
             check = false;
         }
-        else if (isValidEmail(email)) {
+        else if (!isValidEmail(email)) {
             msg = " כתובת דוא'ל לא יכולה להכיל תווים אסורים כגון #$%^&*-!:; []{}<>?";
             etEmail.setError(msg);
             check = false;

@@ -1,51 +1,44 @@
 package com.noam.noamproject1.models;
 
 public class Attraction {
-    protected String id,name, type, city,detail,area;
-    protected int capcity;
+    protected String id, name, type, city, detail, area;
+    protected int capacity;
     protected double rating;
-    protected  double sumRate;
-    protected  int numRate;
+    protected double sumRate;
+    protected int numRate;
 
-    public String getdetail() {
-        return detail;
-    }
-
-    public void setdetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-
-    public Attraction(String id, String name, String type, String city, String detail, String area, int capcity, double rating, double sumRate, int numRate) {
+    // קונסטרוקטור שמקבל את כל הפרמטרים
+    public Attraction(String id, String name, String type, String city, String detail, String area, int capacity, double rating, double sumRate, int numRate) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.city = city;
         this.detail = detail;
         this.area = area;
-        this.capcity = capcity;
+        this.capacity = capacity;
         this.rating = rating;
         this.sumRate = sumRate;
         this.numRate = numRate;
     }
 
-    public Attraction( int capcity) {
-        this.capcity=capcity;
-
+    // קונסטרוקטור שמקבל רק את המידע החיוני (כמו בקוד שלך)
+    public Attraction(String name, String detail, int capacity, String city, String type, String area) {
+        this.name = name;
+        this.detail = detail;
+        this.capacity = capacity;
+        this.city = city;
+        this.type = type;
+        this.area = area;
+        this.rating = 0.0; // Default value
+        this.sumRate = 0.0; // Default value
+        this.numRate = 0; // Default value
     }
 
-
+    // קונסטרוקטור ריק
     public Attraction() {
     }
 
+    // Getter ו- Setter לכל שדה
     public String getId() {
         return id;
     }
@@ -78,12 +71,28 @@ public class Attraction {
         this.city = city;
     }
 
-    public int getCapcity() {
-        return capcity;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setCapcity(int capcity) {
-        this.capcity = capcity;
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public double getRating() {
@@ -92,14 +101,6 @@ public class Attraction {
 
     public void setRating(double rating) {
         this.rating = rating;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
     }
 
     public double getSumRate() {
@@ -127,7 +128,7 @@ public class Attraction {
                 ", city='" + city + '\'' +
                 ", detail='" + detail + '\'' +
                 ", area='" + area + '\'' +
-                ", capcity=" + capcity +
+                ", capacity=" + capacity +
                 ", rating=" + rating +
                 ", sumRate=" + sumRate +
                 ", numRate=" + numRate +
