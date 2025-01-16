@@ -7,8 +7,11 @@ public class Attraction {
     protected double sumRate;
     protected int numRate;
 
+    String pic;
+
     // קונסטרוקטור שמקבל את כל הפרמטרים
-    public Attraction(String id, String name, String type, String city, String detail, String area, int capacity, double rating, double sumRate, int numRate) {
+
+    public Attraction(String id, String name, String type, String city, String detail, String area, int capacity, double rating, double sumRate, int numRate, String pic) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -19,6 +22,7 @@ public class Attraction {
         this.rating = rating;
         this.sumRate = sumRate;
         this.numRate = numRate;
+        this.pic = pic;
     }
 
     // קונסטרוקטור שמקבל רק את המידע החיוני (כמו בקוד שלך)
@@ -117,6 +121,14 @@ public class Attraction {
 
     public void setNumRate(int numRate) {
         this.numRate = numRate;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     @Override

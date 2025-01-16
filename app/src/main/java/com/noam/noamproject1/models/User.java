@@ -3,6 +3,7 @@ package com.noam.noamproject1.models;
 public class User {
     private String id;
     private String fname,lname,phone,email,password;
+  //  protected boolean isAdmin;
 
     public User(String id, String fname, String lname, String phone, String email, String password) {
         this.id = id;
@@ -11,6 +12,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.password = password;
+       // this.isAdmin = isAdmin;
     }
 
     @Override

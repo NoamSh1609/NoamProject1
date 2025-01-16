@@ -12,9 +12,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.noam.noamproject1.R;
+import com.noam.noamproject1.services.AuthenticationService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity,btnAddAttraction;
+    Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity,btnAddAttraction,btnMangerLoginPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +27,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+    //    if (!AuthenticationService.getInstance().isUserSignedIn()) {
+    //        Intent intent = new Intent(this, LandingPage.class);
+      //      startActivity(intent);
+        //    finish();
+        //}
+
         initViews();
 
     }
 
     private void initViews() {
+        btnMangerLoginPage = findViewById(R.id.btnMangerLoginPage);
         btnform = findViewById(R.id.btnForm);
         btnLoginMain = findViewById(R.id.btnLoginMain);
         btnWebsiteR= findViewById(R.id.btnWebsiteReview);
@@ -41,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLoginMain.setOnClickListener(this);
         btnWebsiteR.setOnClickListener(this);
         btnAttractionActivity.setOnClickListener(this);
+        btnMangerLoginPage.setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent go = new Intent(this, AddAttraction.class); // מעבר ל-WebsiteReview
             startActivity(go);
         }
+        else if (view ==btnMangerLoginPage ) {
+            Intent go = new Intent(this, menger_page.class); // מעבר ל-WebsiteReview
+            startActivity(go);
+        }
+
 
 
     }

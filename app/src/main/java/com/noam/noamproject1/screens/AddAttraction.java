@@ -24,8 +24,10 @@ import com.noam.noamproject1.R;
 import com.noam.noamproject1.models.Attraction;
 import com.noam.noamproject1.services.AuthenticationService;
 import com.noam.noamproject1.services.DatabaseService;
+import com.noam.noamproject1.utils.ImageUtil;
 
 public class AddAttraction extends AppCompatActivity implements View.OnClickListener {
+  //  public static final  TAG = "Add Attraction";
     ImageButton selectImageFromGallery;
     EditText etAttractionCapicity, etAttractionDetails, etAttractionName;
     Button btnAdd;
@@ -46,7 +48,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
 
     // One Preview Image
 
-    ImageView IVPreviewImage;
+    ImageView ivPreviewImage;
 
     // constant to compare
     // the activity result code
@@ -70,6 +72,12 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         spAttractionCity = findViewById(R.id.spAttractionCity);
         spAttractionType = findViewById(R.id.spAttractionType);
         spAttractionArea = findViewById(R.id.spAttractionArea);
+        ivPreviewImage=findViewById(R.id.ivAddAttraction);
+
+        /// request permission for the camera and storage
+
+
+        ImageUtil.requestPermission(this);
 
         // Get the string arrays from resources
         String[] attractionCityArray = getResources().getStringArray(R.array.spAttractionCity);
@@ -112,11 +120,11 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
             return;
         }
         if (v == selectImageFromGallery) {
-            // Open image gallery when image button is clicked
-        //    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        //    selectImageLauncher.launch(intent);
+            // select image from gallery
+            Log.d("TAG", "Select image button clicked");
+            selectImageFromGallery();
+            return;
 
-            imageChooser();
         }
     }
 
@@ -130,6 +138,10 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         String attractionType = spAttractionType.getSelectedItem().toString();
         String attractionArea = spAttractionArea.getSelectedItem().toString();
 
+        String imageBase64 = ImageUtil.convertTo64Base(ivPreviewImage);
+
+
+
 
         // Validate if fields are filled
         if (attractionName.isEmpty() || attractionDetails.isEmpty() || attractionCapacityString.isEmpty()) {
@@ -137,7 +149,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         } else {
             String id = databaseService.generateNewAttractionId();
             Attraction attr = new Attraction(id, attractionName, attractionType, attractionCity, attractionDetails,
-                    attractionArea, 0, 0, 0, 0);
+                    attractionArea, 0, 0, 0, 0, imageBase64);
 
             // If image is selected, you can handle the image here before saving it in the database
             if (selectedImageUri != null) {
@@ -150,7 +162,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onCompleted(Void object) {
                     Toast.makeText(AddAttraction.this, "הצליח", Toast.LENGTH_SHORT).show();
-                    Intent go = new Intent(AddAttraction.this, AttractionsActivity.class);
+                    Intent go = new Intent(AddAttraction.this, MainActivity.class);
                     startActivity(go);
                 }
 
@@ -210,7 +222,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
-                    IVPreviewImage.setImageURI(selectedImageUri);
+                    ivPreviewImage.setImageURI(selectedImageUri);
                 }
             }
         }

@@ -101,5 +101,21 @@
         android:shadowDy="2"
         android:shadowRadius="6" />
 
+    <Button
+        android:id="@+id/btnMangerLoginPage"
+        android:layout_width="379dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#D32547"
+        android:gravity="center"
+        android:shadowColor="#D82735"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="6"
+        android:text="דף כניסה בתור מנהל"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
 
 </LinearLayout>

@@ -14,7 +14,7 @@ import com.noam.noamproject1.R;
 public class menger_page extends AppCompatActivity {
 
     EditText etMangerPassword;
-    Button btnLogin;
+    Button btn_admin_main_page;
 
     // הסיסמה שצריך להזין
     private static final String CORRECT_PASSWORD = "OmerTheMonkey69"; // החלף עם הסיסמה הנכונה
@@ -26,10 +26,10 @@ public class menger_page extends AppCompatActivity {
 
         // אתחול המשתנים
         etMangerPassword = findViewById(R.id.etMangerPassword);
-        btnLogin = findViewById(R.id.button);
+        btn_admin_main_page = findViewById(R.id.btn_admin_main_page);
 
         // מאזין לכפתור
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btn_admin_main_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // קבלת הסיסמה שהוזנה
@@ -38,7 +38,7 @@ public class menger_page extends AppCompatActivity {
                 // בדיקת אם הסיסמה נכונה
                 if (enteredPassword.equals(CORRECT_PASSWORD)) {
                     // אם הסיסמה נכונה, נווט לעמוד הבא
-                    Intent intent = new Intent(menger_page.this, AdminMainPage.class); // החלף את NextActivity עם שם הפעילות הבאה
+                    Intent intent = new Intent(menger_page.this, AdminMainPage.class); // החלף את AdminMainPage עם שם הפעילות הבאה
                     startActivity(intent);
                 } else {
                     // אם הסיסמה לא נכונה, הצג הודעת שגיאה
