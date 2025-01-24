@@ -16,7 +16,7 @@
             android:name=".screens.AdminMainPage"
             android:exported="false" />
         <activity
-            android:name=".screens.menger_page"
+            android:name=".screens.ManagerActivity"
             android:exported="false" />
         <activity
             android:name=".screens.AddAttraction"

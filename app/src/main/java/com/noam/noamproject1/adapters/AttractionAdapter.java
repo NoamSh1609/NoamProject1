@@ -1,4 +1,4 @@
-package com.noam.noamproject1.screens;
+package com.noam.noamproject1.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,41 +14,39 @@ import java.util.List;
 
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder> {
 
-    private List<Attraction> attractionsList;
+    private List<Attraction> attractionList;
 
-    public AttractionAdapter(List<Attraction> attractionsList) {
-        this.attractionsList = attractionsList;
+    public AttractionAdapter(List<Attraction> attractionList) {
+        this.attractionList = attractionList;
     }
 
     @Override
     public AttractionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.attraction_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_attraction, parent, false);
         return new AttractionViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(AttractionViewHolder holder, int position) {
-        Attraction attraction = attractionsList.get(position);
-        holder.nameTextView.setText(attraction.getName());
-        holder.cityTextView.setText(attraction.getCity());
-
-        holder.ratingTextView.setText("דירוג: " + attraction.getRating());
+        Attraction attraction = attractionList.get(position);
+        if (attraction == null) return;
+        holder.tvAttractionName.setText(attraction.getName());
+        holder.tvAttractionDetails.setText(attraction.getDetail());
+        // הוספת נתונים נוספים אם צריך
     }
 
     @Override
     public int getItemCount() {
-        return attractionsList.size();
+        return attractionList.size();
     }
 
     public static class AttractionViewHolder extends RecyclerView.ViewHolder {
-
-        TextView nameTextView, cityTextView, ratingTextView;
+        TextView tvAttractionName, tvAttractionDetails;
 
         public AttractionViewHolder(View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.attractionName);
-            cityTextView = itemView.findViewById(R.id.attractionCity);
-            ratingTextView = itemView.findViewById(R.id.attractionRating);
+            tvAttractionName = itemView.findViewById(R.id.tvAttractionName);
+            tvAttractionDetails = itemView.findViewById(R.id.tvAttractionDetails);
         }
     }
 }

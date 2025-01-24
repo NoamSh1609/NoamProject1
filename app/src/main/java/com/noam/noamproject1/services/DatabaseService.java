@@ -11,6 +11,9 @@ import com.noam.noamproject1.models.User;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /// a service to interact with the Firebase Realtime Database.
 /// this class is a singleton, use getInstance() to get an instance of this class
@@ -110,6 +113,24 @@ public class DatabaseService {
         });
     }
 
+
+    private <T> void getDataList(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull final DatabaseCallback<List<T>> callback) {
+        readData(path).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<T> tList = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                T t = dataSnapshot.getValue(clazz);
+                tList.add(t);
+            });
+
+            callback.onCompleted(tList);
+        });
+    }
+
     /// generate a new id for a new object in the database
     /// @param path the path to generate the id for
     /// @return a new id for the object
@@ -166,6 +187,10 @@ public class DatabaseService {
         writeData("Attractions/" + att.getId(), att, callback);
     }
 
+    public void getAttractionList(@NotNull final DatabaseCallback<List<Attraction>> callback) {
+        getDataList("Attractions", Attraction.class, callback);
+    }
+
 
     /// get a user from the database
     /// @param uid the id of the user to get
@@ -178,5 +203,7 @@ public class DatabaseService {
     public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
         getData("Users/" + uid, User.class, callback);
     }
+
+
 
 }

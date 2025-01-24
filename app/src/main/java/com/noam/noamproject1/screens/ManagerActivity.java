@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.noam.noamproject1.R;
 
-public class menger_page extends AppCompatActivity {
+public class ManagerActivity extends AppCompatActivity {
 
     EditText etMangerPassword;
     Button btn_admin_main_page;
@@ -22,7 +22,7 @@ public class menger_page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menger_page);
+        setContentView(R.layout.activity_manager);
 
         // אתחול המשתנים
         etMangerPassword = findViewById(R.id.etMangerPassword);
@@ -38,11 +38,11 @@ public class menger_page extends AppCompatActivity {
                 // בדיקת אם הסיסמה נכונה
                 if (enteredPassword.equals(CORRECT_PASSWORD)) {
                     // אם הסיסמה נכונה, נווט לעמוד הבא
-                    Intent intent = new Intent(menger_page.this, AdminMainPage.class); // החלף את AdminMainPage עם שם הפעילות הבאה
+                    Intent intent = new Intent(ManagerActivity.this, AdminMainPage.class); // החלף את AdminMainPage עם שם הפעילות הבאה
                     startActivity(intent);
                 } else {
                     // אם הסיסמה לא נכונה, הצג הודעת שגיאה
-                    Toast.makeText(menger_page.this, "סיסמה לא נכונה", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManagerActivity.this, "סיסמה לא נכונה", Toast.LENGTH_SHORT).show();
                 }
             }
         });

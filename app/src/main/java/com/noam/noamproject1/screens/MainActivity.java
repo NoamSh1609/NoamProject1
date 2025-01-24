@@ -12,7 +12,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.noam.noamproject1.R;
-import com.noam.noamproject1.services.AuthenticationService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity,btnAddAttraction,btnMangerLoginPage;
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(go);
         }
         else if (view ==btnMangerLoginPage ) {
-            Intent go = new Intent(this, menger_page.class); // מעבר ל-WebsiteReview
+            Intent go = new Intent(this, ManagerActivity.class); // מעבר ל-WebsiteReview
             startActivity(go);
         }
 
