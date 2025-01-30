@@ -9,7 +9,6 @@
 
     <!-- כותרת של הדף -->
     <TextView
-        android:id="@+id/attractionsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="היעדים המומלצים"
@@ -19,10 +18,11 @@
 
     <!-- RecyclerView להצגת כל היעדים -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/attractionsRecyclerView"
+        android:id="@+id/rvAttractionDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_attraction" />
+
 
     <Button
         android:layout_width="wrap_content"

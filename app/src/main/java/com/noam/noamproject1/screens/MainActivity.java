@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.noam.noamproject1.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity,btnAddAttraction,btnMangerLoginPage;
+    Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity,btnAddAttraction,btnMangerLoginPage,btnShowUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +44,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnWebsiteR= findViewById(R.id.btnWebsiteReview);
         btnAttractionActivity=findViewById(R.id.btnAttractionActivity);
         btnAddAttraction=findViewById(R.id.btnAddAttraction);
+        btnShowUser=findViewById(R.id.btnShowUser);
+
         btnAddAttraction.setOnClickListener(this);
         btnform.setOnClickListener(this);
         btnLoginMain.setOnClickListener(this);
         btnWebsiteR.setOnClickListener(this);
         btnAttractionActivity.setOnClickListener(this);
         btnMangerLoginPage.setOnClickListener(this);
+        btnShowUser.setOnClickListener(this);
+
     }
 
     @Override
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(go);
         }
          else if (view ==btnAttractionActivity ) {
-        Intent go = new Intent(this, AttractionsActivity.class); // מעבר ל-WebsiteReview
+        Intent go = new Intent(this, ShowAttractionActivity.class); // מעבר ל-WebsiteReview
         startActivity(go);
         }
         else if (view ==btnAddAttraction ) {
@@ -73,9 +77,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(go);
         }
         else if (view ==btnMangerLoginPage ) {
-            Intent go = new Intent(this, ManagerActivity.class); // מעבר ל-WebsiteReview
+            Intent go = new Intent(this, DeleteUser.class); // מעבר ל-WebsiteReview
             startActivity(go);
+
         }
+        else if (view ==btnShowUser ) {
+            Intent go = new Intent(this, ShowUser.class); // מעבר ל-WebsiteReview
+            startActivity(go);
+
+        }
+
+
 
 
 

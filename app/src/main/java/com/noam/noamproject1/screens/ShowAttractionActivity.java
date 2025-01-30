@@ -33,7 +33,7 @@ public class ShowAttractionActivity extends AppCompatActivity {
         // אתחול של ה-RecyclerView
         attractionList = new ArrayList<>();
         attractionAdapter = new AttractionAdapter(attractionList);
-        rvAttractions = findViewById(R.id.attractionsRecyclerView); // RecyclerView להצגת האטרקציות
+        rvAttractions = findViewById(R.id.rvAttractionDetails); // RecyclerView להצגת האטרקציות
         rvAttractions.setLayoutManager(new LinearLayoutManager(this)); // הגדרת LayoutManager
         rvAttractions.setAdapter(attractionAdapter);
 
@@ -41,7 +41,7 @@ public class ShowAttractionActivity extends AppCompatActivity {
         fetchAttractions();
     }
 
-    
+
     private void fetchAttractions() {
         databaseService.getAttractionList(new DatabaseService.DatabaseCallback<List<Attraction>>() {
             @Override
