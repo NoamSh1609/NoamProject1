@@ -5,6 +5,10 @@ public class User {
     private String fname,lname,phone,email,password;
   //  protected boolean isAdmin;
 
+
+    public User() {
+    }
+
     public User(String id, String fname, String lname, String phone, String email, String password) {
         this.id = id;
         this.fname = fname;

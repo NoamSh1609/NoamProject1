@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,22 +42,21 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
         holder.tvAttractionCity.setText(attraction.getCity());
         holder.pic.setImageBitmap(ImageUtil.convertFrom64base(attraction.getPic()));
 
-        // התנהגות כפתור "קרא עוד"
-        holder.tvAttractionDetails.setText("קרא עוד...."); // מתחילים עם הטקסט "קרא עוד"
 
         // מוסתר בהתחלה את הטקסט של העיר
-        holder.tvAttractionCity.setVisibility(View.GONE);
+        holder.tvAttractionDetails.setVisibility(View.GONE);
 
-        holder.tvAttractionDetails.setOnClickListener(v -> {
+        holder.btnAttraction.setText("קרא עוד....");
+        holder.btnAttraction.setOnClickListener(v -> {
             // בדיקה אם הטקסט של הכפתור הוא "קרא עוד"
-            if (holder.tvAttractionDetails.getText().toString().equals("קרא עוד....")) {
-                holder.tvAttractionDetails.setText("הסתר");
+            if (holder.btnAttraction.getText().toString().equals("קרא עוד....")) {
+                holder.btnAttraction.setText("הסתר");
                 // הצגת התוכן הנוסף (כמו city, אם צריך)
-                holder.tvAttractionCity.setVisibility(View.VISIBLE);  // הצגת התוכן הנוסף
+                holder.tvAttractionDetails.setVisibility(View.VISIBLE);  // הצגת התוכן הנוסף
             } else {
-                holder.tvAttractionDetails.setText("קרא עוד....");
+                holder.btnAttraction.setText("קרא עוד....");
                 // הסתרת התוכן הנוסף
-                holder.tvAttractionCity.setVisibility(View.GONE);
+                holder.tvAttractionDetails.setVisibility(View.GONE);
             }
         });
     }
@@ -68,14 +68,16 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
 
     public static class AttractionViewHolder extends RecyclerView.ViewHolder {
         TextView tvAttractionName, tvAttractionDetails, tvAttractionCity;
+        Button btnAttraction;
         ImageView pic;
 
         @SuppressLint("WrongViewCast")
         public AttractionViewHolder(View itemView) {
             super(itemView);
             tvAttractionName = itemView.findViewById(R.id.tvAttractionName);
-            tvAttractionDetails = itemView.findViewById(R.id.tvAttractionDetails);
+            btnAttraction = itemView.findViewById(R.id.btnAttraction);
             tvAttractionCity = itemView.findViewById(R.id.tvAttractionCity);
+            tvAttractionDetails=itemView.findViewById(R.id.tvAttractionDetails);
             pic = itemView.findViewById(R.id.pic);
         }
     }
