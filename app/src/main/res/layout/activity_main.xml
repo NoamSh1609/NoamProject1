@@ -20,119 +20,133 @@
         app:srcCompat="@drawable/logo" />
 
     <!-- Login Button with a more modern look -->
-    <Button
-        android:id="@+id/btnForm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#8B5A2B"
-        android:gravity="center"
-        android:shadowColor="#000000"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="6"
-        android:text="הרשם"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnLoginMain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#FFC107"
-        android:text="התחבר"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:shadowColor="#000000"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="6" />
 
     <!-- Website Review Button with eye-catching color -->
-    <Button
-        android:id="@+id/btnWebsiteReview"
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FF7043"
-        android:text="ביקרות"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"
-        android:gravity="center"
-        android:shadowColor="#FF7043"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="6" />
-    <Button
-        android:id="@+id/btnAttractionActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#D560D8"
-        android:text="יעדים"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"
-        android:gravity="center"
-        android:shadowColor="#4CAF50"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="6" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnAddAttraction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#54D38D"
-        android:text="הוספת יעד"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"
-        android:gravity="center"
-        android:shadowColor="#4CAF50"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="6" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btnMangerLoginPage"
-        android:layout_width="379dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="#D32547"
-        android:gravity="center"
-        android:shadowColor="#D82735"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="6"
-        android:text="מחיקת משתמש"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#8B5A2B"
+                android:gravity="center"
+                android:shadowColor="#000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text="הרשם"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/btnLoginMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#FFC107"
+                android:gravity="center"
+                android:shadowColor="#000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text="התחבר"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnShowUser"
-        android:layout_width="379dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="#D32547"
-        android:gravity="center"
-        android:shadowColor="#D82735"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="6"
-        android:text=" משתמשים"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnWebsiteReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#FF7043"
+                android:gravity="center"
+                android:shadowColor="#FF7043"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text="ביקרות"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnAttractionActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#D560D8"
+                android:gravity="center"
+                android:shadowColor="#4CAF50"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text="יעדים"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnAddAttraction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#54D38D"
+                android:gravity="center"
+                android:shadowColor="#4CAF50"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text="הוספת יעד"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnMangerLoginPage"
+                android:layout_width="379dp"
+                android:layout_height="54dp"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#D32547"
+                android:gravity="center"
+                android:shadowColor="#D82735"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text="מחיקת משתמש"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnShowUser"
+                android:layout_width="379dp"
+                android:layout_height="54dp"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#D32547"
+                android:gravity="center"
+                android:shadowColor="#D82735"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text=" משתמשים"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>
