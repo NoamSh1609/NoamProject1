@@ -11,18 +11,21 @@ if (localPropertiesFile.exists()) {
 
 android {
     namespace 'com.noam.noamproject1'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.noam.noamproject1"
         minSdk 24
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "MAPS_API_KEY", "\"" + localProperties.getProperty("MAPS_API_KEY") + "\""
+        // Ensure the MAPS_API_KEY is properly passed
+        def mapsApiKey = localProperties.getProperty("MAPS_API_KEY", "")
+        buildConfigField "String", "MAPS_API_KEY", "\"${mapsApiKey}\""
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
     }
 
     buildTypes {
@@ -31,6 +34,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        buildConfig true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -38,13 +46,13 @@ android {
 }
 
 dependencies {
-
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.firebase.database
     implementation libs.firebase.auth
+    implementation libs.recyclerview
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

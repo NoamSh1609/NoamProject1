@@ -1,4 +1,4 @@
-package com.noam.noamproject1.screens;
+package com.noam.noamproject1.screens.Admin;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,7 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +24,7 @@ import com.noam.noamproject1.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowAttractionActivity extends AppCompatActivity {
+public class AdminShowAttraction extends AppCompatActivity {
 
     private RecyclerView rvAttractions;
     private AttractionAdapter attractionAdapter;
@@ -29,14 +33,21 @@ public class ShowAttractionActivity extends AppCompatActivity {
     private List<Attraction> fullAttractionList = new ArrayList<>();
     private EditText etSearchAttraction;
     private Button btnGoBack;
-    DatabaseService databaseService;
+    private DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_attractions);
-
-        databaseService = DatabaseService.getInstance();
+        // הפעלת מצב EdgeToEdge
+        EdgeToEdge.enable(this);
+        // שימוש בקובץ ה-XML המיועד למנהלים (activity_admin_show_attraction.xml)
+        setContentView(R.layout.activity_admin_show_attraction);
+        // טיפול ב-insets כדי להתאים את התצוגה לממשק מלא (full screen)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         // אתחול רכיבי ה-XML
         etSearchAttraction = findViewById(R.id.etSearchAttraction);
@@ -48,7 +59,7 @@ public class ShowAttractionActivity extends AppCompatActivity {
         attractionAdapter = new AttractionAdapter(attractionList);
         rvAttractions.setAdapter(attractionAdapter);
 
-        // קריאה לאטרקציות מ-Firebase
+        databaseService = DatabaseService.getInstance();
         fetchAttractions();
 
         // מאזין לשינויי טקסט בשדה החיפוש
@@ -69,24 +80,24 @@ public class ShowAttractionActivity extends AppCompatActivity {
             }
         });
 
-        // דוגמה לטיפול בלחיצה על כפתור "back"
+        // טיפול בלחיצה על כפתור "back"
         btnGoBack.setOnClickListener(v -> finish());
     }
 
+    // קריאה לאטרקציות מהמסד נתונים
     private void fetchAttractions() {
         databaseService.getAttractionList(new DatabaseService.DatabaseCallback<List<Attraction>>() {
             @Override
             public void onCompleted(List<Attraction> attractions) {
-                // עדכון הרשימות עם הנתונים החדשים
                 fullAttractionList.clear();
                 fullAttractionList.addAll(attractions);
-                // התחלת סינון עם שאילתת ריקה – מציג את כל האטרקציות
+                // סינון ראשוני עם שאילתת ריקה – מציג את כל האטרקציות
                 filterAttractions("");
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e("ShowAttractionActivity", e.getMessage());
+                Log.e("AdminShowAttraction", e.getMessage());
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

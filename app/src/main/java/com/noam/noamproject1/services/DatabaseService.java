@@ -205,5 +205,10 @@ public class DatabaseService {
     }
 
 
+    public void getUserList(DatabaseCallback<List<User>> callback) {
+        getDataList("Users", User.class, callback);
+    }
+
+
 
 }

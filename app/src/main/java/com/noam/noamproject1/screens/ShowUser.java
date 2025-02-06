@@ -1,6 +1,10 @@
 package com.noam.noamproject1.screens;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,11 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.adapters.UserAdapter;
 import com.noam.noamproject1.models.User;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.noam.noamproject1.services.DatabaseService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,43 +24,73 @@ public class ShowUser extends AppCompatActivity {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<User> userList;
+    private List<User> filteredList;  // רשימה מסוננת של משתמשים
 
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
+    DatabaseService databaseService;
+
+    private EditText etSearch;  // EditText עבור החיפוש
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_user);
 
+        databaseService = DatabaseService.getInstance();
+
+        // מציאת האלמנטים
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        etSearch = findViewById(R.id.etSearch);
+
         userList = new ArrayList<>();
-        userAdapter = new UserAdapter(userList);
+        filteredList = new ArrayList<>();
+        userAdapter = new UserAdapter(filteredList);
         recyclerView.setAdapter(userAdapter);
 
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Users");
-
-        // קורא את רשימת המשתמשים מה-Database
-        myRef.addValueEventListener(new ValueEventListener() {
+        databaseService.getUserList(new DatabaseService.DatabaseCallback<List<User>>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onCompleted(List<User> users) {
                 userList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    if (user != null) {
-                        userList.add(user);
-                    }
-                }
-                userAdapter.notifyDataSetChanged(); // עדכון ה-Adapter
+                userList.addAll(users);
+                filterUsers(""); // סינון כללי בתחילת העבודה
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onFailed(Exception e) {
                 Toast.makeText(ShowUser.this, "Error fetching data", Toast.LENGTH_SHORT).show();
             }
         });
+        
+        // מאזין לשינויים במילת החיפוש
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                filterUsers(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+    }
+
+    // פונקציה לסינון המשתמשים
+    private void filterUsers(String query) {
+        filteredList.clear();
+        if (query.isEmpty()) {
+            filteredList.addAll(userList); // אם השדה ריק, מציג את כל המשתמשים
+        } else {
+            for (User user : userList) {
+                if (user.getFname().toLowerCase().contains(query.toLowerCase()) ||
+                        user.getLname().toLowerCase().contains(query.toLowerCase()) ||
+                        user.getEmail().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(user);
+                }
+            }
+        }
+        userAdapter.notifyDataSetChanged(); // עדכון ה-Adapter
     }
 }
