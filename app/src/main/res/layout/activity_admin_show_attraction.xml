@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:id="@+id/main"
-    tools:context=".screens.ShowAttractionActivity">
+    tools:context=".screens.Admin.AdminShowAttraction">
 
     <!-- כותרת של הדף -->
     <TextView
@@ -35,9 +35,18 @@
         android:layout_weight="1"
         tools:listitem="@layout/item_attraction" />
 
+    <!-- כפתור חזרה -->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="back"
+        android:text="חזור"
         android:id="@+id/btnGoBack" />
+
+    <!-- כפתור מחיקת אטרקציה -->
+    <Button
+        android:id="@+id/btnDeleteAttraction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מחק אטרקציה"
+        android:layout_marginTop="8dp" />
 </LinearLayout>

@@ -12,9 +12,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.noam.noamproject1.R;
+import com.noam.noamproject1.screens.Admin.AdminShowAttraction;
+import com.noam.noamproject1.services.AuthenticationService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity,btnAddAttraction,btnMangerLoginPage,btnShowUser;
+    Button btnform, btnLoginMain,btnWebsiteR,btnAttractionActivity,btnAddAttraction,btnMangerLoginPage,btnShowUser,btnGame,btnShowAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return insets;
         });
 
-    //    if (!AuthenticationService.getInstance().isUserSignedIn()) {
-    //        Intent intent = new Intent(this, LandingPage.class);
-      //      startActivity(intent);
-        //    finish();
-        //}
+        if (!AuthenticationService.getInstance().isUserSignedIn()) {
+            Intent intent = new Intent(this, TheFirstViewOfTheApp.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         initViews();
 
@@ -45,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAttractionActivity=findViewById(R.id.btnAttractionActivity);
         btnAddAttraction=findViewById(R.id.btnAddAttraction);
         btnShowUser=findViewById(R.id.btnShowUser);
-
+        btnGame=findViewById(R.id.btnGame);
+        btnShowAdmin=findViewById(R.id.btnShowAdmin);
         btnAddAttraction.setOnClickListener(this);
         btnform.setOnClickListener(this);
         btnLoginMain.setOnClickListener(this);
@@ -53,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAttractionActivity.setOnClickListener(this);
         btnMangerLoginPage.setOnClickListener(this);
         btnShowUser.setOnClickListener(this);
-
+        btnGame.setOnClickListener(this);
+        btnShowAdmin.setOnClickListener(this);
     }
 
     @Override
@@ -86,7 +91,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(go);
 
         }
+        else if (view ==btnGame ) {
+            Intent go = new Intent(this, SuitcasesAndBombs.class); // מעבר ל-WebsiteReview
+            startActivity(go);
 
+        }
+        else if (view ==btnShowAdmin ) {
+            Intent go = new Intent(this, AdminShowAttraction.class); // מעבר ל-WebsiteReview
+            startActivity(go);
+
+        }
 
 
 

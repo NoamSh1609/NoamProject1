@@ -145,6 +145,37 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnShowAdmin"
+                android:layout_width="379dp"
+                android:layout_height="54dp"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#D32547"
+                android:gravity="center"
+                android:shadowColor="#D82735"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text=" משתמשים"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnGame"
+                android:layout_width="379dp"
+                android:layout_height="54dp"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#D32547"
+                android:gravity="center"
+                android:shadowColor="#D82735"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="6"
+                android:text=" משתמשים"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 

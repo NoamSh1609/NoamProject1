@@ -73,7 +73,7 @@ public class DatabaseService {
     /// @return void
     /// @see DatabaseCallback
     private void writeData(@NotNull final String path, @NotNull final Object data, final @Nullable DatabaseCallback<Void> callback) {
-        databaseReference.child(path).setValue(data).addOnCompleteListener(task -> {
+        readData(path).setValue(data).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (callback == null) return;
                 callback.onCompleted(task.getResult());
@@ -129,6 +129,19 @@ public class DatabaseService {
 
             callback.onCompleted(tList);
         });
+    }
+
+    private void deleteData(String path, DatabaseCallback<Boolean> databaseCallback) {
+        readData(path).removeValue()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // קריאה ל-onCompleted אם הצליח
+                    databaseCallback.onCompleted(true);
+                } else {
+                    // קריאה ל-onFailed אם נכשל
+                    databaseCallback.onFailed(task.getException());
+                }
+            });
     }
 
     /// generate a new id for a new object in the database
@@ -207,6 +220,11 @@ public class DatabaseService {
 
     public void getUserList(DatabaseCallback<List<User>> callback) {
         getDataList("Users", User.class, callback);
+    }
+
+
+    public void deleteAttraction(String id, DatabaseCallback<Boolean> databaseCallback) {
+        deleteData("attractions/" + id, databaseCallback);
     }
 
 
