@@ -8,20 +8,28 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.noam.noamproject1.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WebsiteReview extends AppCompatActivity {
 
     private EditText reviewEditText;
     private RatingBar ratingBar;
     private Button submitReviewButton;
-    private TextView reviewsTextView;  // TextView חדש להצגת כל הביקורות
+    private TextView reviewsTextView;
 
-    // רשימה לאחסון כל הביקורות שנשלחו
+    private DatabaseReference databaseRef;
     private ArrayList<String> reviewsList = new ArrayList<>();
 
     @Override
@@ -29,40 +37,84 @@ public class WebsiteReview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_website_review);
 
-        // אתחול של רכיבי ה-UI
+        // אתחול חיבור ל-Firebase Database
+        databaseRef = FirebaseDatabase.getInstance().getReference("reviews");
+
+        // אתחול רכיבי ה-UI
         reviewEditText = findViewById(R.id.reviewEditText);
         ratingBar = findViewById(R.id.ratingBar);
         submitReviewButton = findViewById(R.id.submitReviewButton);
-        reviewsTextView = findViewById(R.id.reviewsTextView); // אתחול של ה-TextView להצגת כל הביקורות
+        reviewsTextView = findViewById(R.id.reviewsTextView);
 
-        // פעולה כשנלחץ על כפתור שליחת חוות דעת
+        // טוען חוות דעת קיימות מה-Database
+        loadReviews();
+
+        // פעולה כאשר לוחצים על כפתור שליחת חוות דעת
         submitReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // קבלת חוות הדעת והדירוג
-                String reviewText = reviewEditText.getText().toString();
-                float rating = ratingBar.getRating();
+                submitReview();
+            }
+        });
+    }
 
-                // בדיקה אם הדירוג לא ריק ושהטקסט לא ריק
-                if (reviewText.isEmpty()) {
-                    Toast.makeText(WebsiteReview.this, "נא כתוב את חוות הדעת שלך!", Toast.LENGTH_SHORT).show();
-                    return;
+    // פונקציה לשליחת חוות דעת
+    private void submitReview() {
+        String reviewText = reviewEditText.getText().toString().trim();
+        float rating = ratingBar.getRating();
+
+        // בדיקות תקינות
+        if (reviewText.isEmpty()) {
+            Toast.makeText(this, "נא כתוב את חוות הדעת שלך!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (rating == 0) {
+            Toast.makeText(this, "נא דרג את האתר!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // יצירת מזהה ייחודי לכל חוות דעת
+        String reviewId = databaseRef.push().getKey();
+
+        // יצירת Map עבור הנתונים
+        Map<String, Object> reviewData = new HashMap<>();
+        reviewData.put("review", reviewText);
+        reviewData.put("rating", rating);
+        reviewData.put("timestamp", System.currentTimeMillis());
+
+        // שמירת חוות הדעת ב-Firebase Database
+        if (reviewId != null) {
+            databaseRef.child(reviewId).setValue(reviewData)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "תודה על חוות הדעת שלך!", Toast.LENGTH_SHORT).show();
+                        reviewEditText.setText(""); // ניקוי השדה
+                        ratingBar.setRating(0); // איפוס הדירוג
+                        loadReviews(); // רענון הביקורות
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(this, "שגיאה בשליחת חוות הדעת!", Toast.LENGTH_SHORT).show());
+        }
+    }
+
+    // פונקציה לטעינת כל הביקורות מה-Database
+    private void loadReviews() {
+        databaseRef.orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                reviewsList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String reviewText = dataSnapshot.child("review").getValue(String.class);
+                    Double rating = dataSnapshot.child("rating").getValue(Double.class);
+
+                    if (reviewText != null && rating != null) {
+                        reviewsList.add("⭐ " + rating + "\n" + reviewText);
+                    }
                 }
-
-                if (rating == 0) {
-                    Toast.makeText(WebsiteReview.this, "נא דרג את האתר!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // הוספת חוות הדעת לרשימה
-                String fullReview = "דרוג: " + rating + "\n" + reviewText;
-                reviewsList.add(fullReview);
-
-                // עדכון ה-UI עם כל הביקורות
                 displayReviews();
+            }
 
-                // הצגת הודעה תודה
-                Toast.makeText(WebsiteReview.this, "תודה על חוות הדעת שלך!", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                reviewsTextView.setText("שגיאה בטעינת הביקורות");
             }
         });
     }
@@ -70,13 +122,9 @@ public class WebsiteReview extends AppCompatActivity {
     // פונקציה לעדכון ה-UI עם כל הביקורות
     private void displayReviews() {
         StringBuilder allReviews = new StringBuilder();
-
-        // מבנה כל הביקורות להצגה ב-TextView
         for (String review : reviewsList) {
             allReviews.append(review).append("\n\n");
         }
-
-        // הצגת כל הביקורות ב-TextView
-        reviewsTextView.setText(allReviews.toString());
+        reviewsTextView.setText(allReviews.toString().isEmpty() ? "אין ביקורות עדיין." : allReviews.toString());
     }
 }

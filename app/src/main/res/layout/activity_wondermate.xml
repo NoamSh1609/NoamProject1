@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".screens.wondermate">
+
+    <!-- כותרת ראשית -->
+    <TextView
+        android:id="@+id/aboutTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ברוכים הבאים ל-WonderMate!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#1976D2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- פסקת פתיחה -->
+    <TextView
+        android:id="@+id/aboutDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="האפליקציה שתעזור לך למצוא את הטיול המושלם! בין אם אתה מחפש מסלולים מאתגרים, נופים מרהיבים או חוויות משפחתיות – WonderMate כאן כדי לספק לך את ההמלצות הטובות ביותר."
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:textColor="#333333"
+        app:layout_constraintTop_toBottomOf="@id/aboutTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <!-- כותרת - איך זה עובד -->
+    <TextView
+        android:id="@+id/howItWorksTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📍 איך זה עובד?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#D32F2F"
+        app:layout_constraintTop_toBottomOf="@id/aboutDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- תוכן - איך זה עובד -->
+    <TextView
+        android:id="@+id/howItWorksDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="🌿 חפש טיולים לפי אזור, סוג מסלול ורמת קושי.\n🌄 קרא ביקורות אמיתיות ממטיילים אחרים כדי למצוא את המסלול שהכי מתאים לך.\n🗺️ צפה במפה אינטראקטיבית שתציג לך את הדרך המדויקת למקום.\n📷 שתף את החוויות שלך, הוסף תמונות והמלצות כדי לעזור לאחרים!"
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/howItWorksTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- כותרת - מידע על מרחק וזמן הגעה -->
+    <TextView
+        android:id="@+id/travelDetailsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🚗 מידע על המרחק וזמן ההגעה"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#3AA53F"
+        app:layout_constraintTop_toBottomOf="@id/howItWorksDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- תוכן - מידע על זמן ומרחק -->
+    <TextView
+        android:id="@+id/travelDetailsDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="📏 לכל טיול יש מידע מפורט על כמות הקילומטרים שתצטרך לעבור.\n⌛ האפליקציה מחשבת עבורך את משך זמן ההגעה ליעד על בסיס מהירות ממוצעת של מטיילים אחרים.\n🛣️ המסלול כולל הנחיות מפורטות כיצד להגיע בדרך הקצרה והנוחה ביותר."
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/travelDetailsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- כפתור חזרה -->
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🔙 חזור"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="#010202"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/travelDetailsDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
