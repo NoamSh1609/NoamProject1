@@ -52,7 +52,7 @@ public class AdminShowUser extends AppCompatActivity {
         userAdapter = new UserAdapter(userList, this::onUserDelete, this::onUserEdit);
         rvUsers.setAdapter(userAdapter);
 
-        fetchUsers();
+
 
         etSearchUser.addTextChangedListener(new TextWatcher() {
             @Override
@@ -68,6 +68,12 @@ public class AdminShowUser extends AppCompatActivity {
         });
 
         btnGoBack.setOnClickListener(v -> finish());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchUsers();
     }
 
     private void fetchUsers() {

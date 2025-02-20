@@ -9,15 +9,15 @@
     android:background="@drawable/splash_background"
     tools:context=".screens.TheFirstViewOfTheApp">
 
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="Logo"
         android:src="@drawable/logo"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="-145dp" />
-
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-90dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
