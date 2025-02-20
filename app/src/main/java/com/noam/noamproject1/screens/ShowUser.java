@@ -45,7 +45,7 @@ public class ShowUser extends AppCompatActivity {
 
         userList = new ArrayList<>();
         filteredList = new ArrayList<>();
-        userAdapter = new UserAdapter(filteredList);
+        userAdapter = new UserAdapter(filteredList,null, null);
         recyclerView.setAdapter(userAdapter);
 
         databaseService.getUserList(new DatabaseService.DatabaseCallback<List<User>>() {

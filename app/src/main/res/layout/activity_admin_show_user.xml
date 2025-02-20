@@ -10,7 +10,7 @@
 
     <!-- שדה חיפוש -->
     <EditText
-        android:id="@+id/etSearchUser"
+        android:id="@+id/etAdminSearchUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="חפש משתמש"
@@ -24,10 +24,13 @@
         android:text="חזור"
         android:layout_gravity="end" />
 
+
+
     <!-- RecyclerView להצגת המשתמשים -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUserDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
 </LinearLayout>

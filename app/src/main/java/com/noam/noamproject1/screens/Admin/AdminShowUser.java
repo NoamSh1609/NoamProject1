@@ -1,5 +1,6 @@
 package com.noam.noamproject1.screens.Admin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,12 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.adapters.UserAdapter;
 import com.noam.noamproject1.models.User;
+import com.noam.noamproject1.screens.EditUserActivity;
 import com.noam.noamproject1.services.DatabaseService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminShowUser extends AppCompatActivity {
+
+    private static final String TAG = "AdminShowUser";
+
 
     private RecyclerView rvUsers;
     private UserAdapter userAdapter;
@@ -35,25 +40,23 @@ public class AdminShowUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_show_user);
 
-        // אתחול רכיבי ה-UI
-        etSearchUser = findViewById(R.id.etSearchUser);
+        Log.d(TAG, "onCreate");
+        etSearchUser = findViewById(R.id.etAdminSearchUser);
         btnGoBack = findViewById(R.id.btnGoBack);
         rvUsers = findViewById(R.id.rvUserDetails);
         rvUsers.setLayoutManager(new LinearLayoutManager(this));
 
-        // אתחול ה-Adapter עם הרשימה שתעודכן לפי החיפוש
-        userAdapter = new UserAdapter(userList);
+        databaseService = DatabaseService.getInstance();
+
+        // הגדרת ה-Adapter עם פונקציות למחיקת משתמש ועריכת משתמש
+        userAdapter = new UserAdapter(userList, this::onUserDelete, this::onUserEdit);
         rvUsers.setAdapter(userAdapter);
 
-        databaseService = DatabaseService.getInstance();
         fetchUsers();
 
-        // מאזין לשינויי טקסט בשדה החיפוש
         etSearchUser.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // לא נדרש כאן
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -61,24 +64,21 @@ public class AdminShowUser extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-                // לא נדרש כאן
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
-        // טיפול בלחיצה על כפתור "חזור"
         btnGoBack.setOnClickListener(v -> finish());
     }
 
-    // קריאה למשתמשים מהמסד נתונים
     private void fetchUsers() {
         databaseService.getUserList(new DatabaseService.DatabaseCallback<List<User>>() {
             @Override
             public void onCompleted(List<User> users) {
-                fullUserList.clear();
-                fullUserList.addAll(users);
-                // סינון ראשוני עם שאילתת ריקה – מציג את כל המשתמשים
-                filterUsers("");
+                if (users != null) {
+                    fullUserList.clear();
+                    fullUserList.addAll(users);
+                    filterUsers("");
+                }
             }
 
             @Override
@@ -89,7 +89,6 @@ public class AdminShowUser extends AppCompatActivity {
         });
     }
 
-    // פונקציית סינון לפי שם המשתמש
     private void filterUsers(String query) {
         userList.clear();
         if (query.isEmpty()) {
@@ -102,5 +101,51 @@ public class AdminShowUser extends AppCompatActivity {
             }
         }
         userAdapter.notifyDataSetChanged();
+    }
+
+    public void onUserDelete(User user) {
+        databaseService.deleteUser(user.getId(), new DatabaseService.DatabaseCallback<Boolean>() {
+            @Override
+            public void onCompleted(Boolean success) {
+                if (success) {
+                    Toast.makeText(AdminShowUser.this, "User deleted successfully", Toast.LENGTH_SHORT).show();
+                    removeUserFromList(user);
+                } else {
+                    Toast.makeText(AdminShowUser.this, "Failed to delete user", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(AdminShowUser.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void onUserEdit(User user) {
+        // שליחה למסך עריכה עם פרטי המשתמש
+        Intent intent = new Intent(this, EditUserActivity.class);
+        intent.putExtra("userId", user.getId());
+        startActivity(intent);
+    }
+
+    private void removeUserFromList(User user) {
+        int index = -1;
+        for (int i = 0; i < fullUserList.size(); i++) {
+            if (fullUserList.get(i).getId().equals(user.getId())) {
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            fullUserList.remove(index);
+        }
+        filterUsers(etSearchUser.getText().toString());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        etSearchUser.addTextChangedListener(null);
     }
 }

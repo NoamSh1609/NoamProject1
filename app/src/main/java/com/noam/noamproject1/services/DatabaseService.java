@@ -175,6 +175,15 @@ public class DatabaseService {
         writeData("Users/" + user.getId(), user, callback);
     }
 
+    public void deleteUser(String id, DatabaseCallback<Boolean> databaseCallback) {
+        // Delete the user from the "Users" node in Firebase Realtime Database
+        deleteData("Users/" + id, databaseCallback);
+    }
+
+    public void updateUser(User currentUser, DatabaseCallback<Void> databaseCallback) {
+        createNewUser(currentUser, databaseCallback);
+    }
+
 
     /// get a user from the database
     /// @param uid the id of the user to get

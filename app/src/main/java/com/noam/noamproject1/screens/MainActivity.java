@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.screens.Admin.AdminShowAttraction;
+import com.noam.noamproject1.screens.Admin.AdminShowUser;
 import com.noam.noamproject1.services.AuthenticationService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         else if (view ==btnShowUser ) {
-            Intent go = new Intent(this, ShowUser.class); // מעבר ל-WebsiteReview
+            Intent go = new Intent(this, AdminShowUser.class); // מעבר ל-WebsiteReview
             startActivity(go);
 
         }

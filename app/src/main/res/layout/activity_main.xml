@@ -141,7 +141,7 @@
                 android:shadowDx="0"
                 android:shadowDy="2"
                 android:shadowRadius="6"
-                android:text=" משתמשים"
+                android:text="1 משתמשים"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -156,7 +156,7 @@
                 android:shadowDx="0"
                 android:shadowDy="2"
                 android:shadowRadius="6"
-                android:text=" משתמשים"
+                android:text="2 משתמשים"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -172,7 +172,7 @@
                 android:shadowDx="0"
                 android:shadowDy="2"
                 android:shadowRadius="6"
-                android:text=" משתמשים"
+                android:text="3 משתמשים"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
