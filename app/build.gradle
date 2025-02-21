@@ -23,9 +23,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Ensure the MAPS_API_KEY is properly passed
-        def mapsApiKey = localProperties.getProperty("MAPS_API_KEY", "")
-        buildConfigField "String", "MAPS_API_KEY", "\"${mapsApiKey}\""
-        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
+        buildConfigField "String", "MAPS_API_KEY", project.hasProperty("MAPS_API_KEY") ? project.MAPS_API_KEY : '"default_value"'
     }
 
     buildTypes {
@@ -53,6 +51,11 @@ dependencies {
     implementation libs.firebase.database
     implementation libs.firebase.auth
     implementation libs.recyclerview
+
+    // הוספת ספריות של Google Maps ו-Location Services
+    implementation libs.play.services.maps
+    implementation libs.play.services.location
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
