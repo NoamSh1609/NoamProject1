@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.noam.noamproject1.utils.Validator;
 
 
 public class Register extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -239,20 +240,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
     }
 
     //password
-    private boolean chkPassword(String password){
-        boolean check = true;
-        if(password.length() < 6) {
-            etPassword.setError("סיסמה חייבת להיות בעלת 6 תווים לפחות");
-            check = false;
-        }
-        if(password.length() > 10) {
-            etPassword.setError("אורך סיסמה לא יהיה יותר מ-10 תווים");
-            check = false;
-        }
-
-        return check;
+    private boolean chkPassword(String password) {
+        return Validator.isPasswordValid(password);
     }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
         city=(String) parent.getItemAtPosition(position);

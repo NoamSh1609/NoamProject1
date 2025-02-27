@@ -137,69 +137,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private boolean chkEmail(String email) {
-        int size = email.length();
-        int atSign = email.indexOf('@');
-        int dotSign = email.indexOf('.', atSign);
-        boolean check = true;
-
-        String msg = "";
-        if (size > 30) {
-            msg = "כתובת הדוא'ל ארוכה מדי";
-            etEmail.setError(msg);
-            check = false;
-        } else if (size < 6) {
-            msg = "כתובת הדוא'ל קצרה מדי או לא קיימת";
-            etEmail.setError(msg);
-            check = false;
-        } else if (atSign == -1) {
-            msg = "סימן @ לא קיים בכתובת";
-            etEmail.setError(msg);
-            check = false;
-        } else if (atSign != email.lastIndexOf('@')) {
-            msg = "אסור יותר מ - @ אחד בכתובת דוא'ל";
-            etEmail.setError(msg);
-            check = false;
-        } else if (atSign < 2 || email.lastIndexOf('@') == size - 1) {
-            msg = "סימן ה-@ לא יכול להיות במקום הראשון או האחרון";
-            etEmail.setError(msg);
-            check = false;
-        } else if (email.indexOf('.') == 0 || email.lastIndexOf('.') == size - 1) {
-            msg = "נקודה לא יכולה להיות תו ראשון או אחרון בכתובת";
-            etEmail.setError(msg);
-            check = false;
-        } else if (dotSign - atSign <= 1) {
-            msg = "נקודה חייבת להיות לפחות 2 תווים אחרי סימן ה-@";
-            etEmail.setError(msg);
-            check = false;
-        } else if (isQuot(email)) {
-            msg = "כתובת דוא'ל לא יכולה להכיל גרש או גרשיים";
-            etEmail.setError(msg);
-            check = false;
-        } else if (!isValidEmail(email)) {
-            msg = " כתובת דוא'ל לא יכולה להכיל תווים אסורים כגון #$%^&*-!:; []{}<>?";
-            etEmail.setError(msg);
-            check = false;
-        } else if (!isHebrew(email)) {
-            msg = "כתובת דוא'ל לא יכולה להכיל עברית";
-            etEmail.setError(msg);
-            check = false;
-        }
-
-        return check;
+        return Validator.isEmailValid(email);
     }
 
     //password
     private boolean chkPassword(String password) {
-        boolean check = true;
-        if (password.length() < 6) {
-            etPassword.setError("סיסמה חייבת להיות בעלת 6 תווים לפחות");
-            check = false;
-        }
-        if (password.length() > 10) {
-            etPassword.setError("אורך סיסמה לא יהיה יותר מ-10 תווים");
-            check = false;
-        }
-
-        return check;
+        return Validator.isPasswordValid(password);
     }
 }

@@ -64,25 +64,25 @@ public class MangerAttractionAdapter extends RecyclerView.Adapter<MangerAttracti
 
         final int pos = position;
 
-        holder.btnDelete.setOnClickListener(v -> {
-            Attraction selectedAttraction = getSelectedAttraction(pos);
-            if (selectedAttraction != null) {
-                databaseService.deleteAttraction(selectedAttraction.getId(), new DatabaseService.DatabaseCallback<Boolean>() {
-                    @Override
-                    public void onCompleted(Boolean isSuccess) {
-                        if (isSuccess) {
-                            attractionList.remove(pos);
-                            notifyItemRemoved(pos);
-                        }
-                    }
-
-                    @Override
-                    public void onFailed(Exception e) {
-
-                    }
-                });
-            }
-        });
+//        holder.btnDelete.setOnClickListener(v -> {
+//            Attraction selectedAttraction = getSelectedAttraction(pos);
+//            if (selectedAttraction != null) {
+//                databaseService.deleteAttraction(selectedAttraction.getId(), new DatabaseService.DatabaseCallback<Boolean>() {
+//                    @Override
+//                    public void onCompleted(Boolean isSuccess) {
+//                        if (isSuccess) {
+//                            attractionList.remove(pos);
+//                            notifyItemRemoved(pos);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailed(Exception e) {
+//
+//                    }
+//                });
+//            }
+//        });
     }
 
     @Override
@@ -102,7 +102,6 @@ public class MangerAttractionAdapter extends RecyclerView.Adapter<MangerAttracti
         Button btnAttraction, btnDelete;
         ImageView pic;
 
-        @SuppressLint("WrongViewCast")
         public ViewHolder(View itemView) {
             super(itemView);
             tvAttractionName = itemView.findViewById(R.id.tvAttractionName);
@@ -110,7 +109,7 @@ public class MangerAttractionAdapter extends RecyclerView.Adapter<MangerAttracti
             tvAttractionCity = itemView.findViewById(R.id.tvAttractionCity);
             tvAttractionDetails = itemView.findViewById(R.id.tvAttractionDetails);
             pic = itemView.findViewById(R.id.pic);
-            btnDelete = itemView.findViewById(R.id.btnDeleteAttraction);
+//            btnDelete = itemView.findViewById(R.id.btnDeleteAttraction);
         }
     }
 }

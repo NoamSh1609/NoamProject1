@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- צבעים כלליים -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- צבעים עיקריים של האפליקציה -->
+    <color name="colorAccent">#FF4081</color> <!-- צבע ורוד בהיר -->
+    <color name="colorPrimary">#6200EE</color> <!-- צבע כחול כהה -->
+    <color name="colorPrimaryDark">#3700B3</color> <!-- צבע כחול כהה יותר -->
 </resources>

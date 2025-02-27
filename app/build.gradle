@@ -3,12 +3,6 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    localProperties.load(new FileInputStream(localPropertiesFile))
-}
-
 android {
     namespace 'com.noam.noamproject1'
     compileSdk 35
@@ -22,8 +16,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // Ensure the MAPS_API_KEY is properly passed
-        buildConfigField "String", "MAPS_API_KEY", project.hasProperty("MAPS_API_KEY") ? project.MAPS_API_KEY : '"default_value"'
     }
 
     buildTypes {
@@ -51,10 +43,6 @@ dependencies {
     implementation libs.firebase.database
     implementation libs.firebase.auth
     implementation libs.recyclerview
-
-    // הוספת ספריות של Google Maps ו-Location Services
-    implementation libs.play.services.maps
-    implementation libs.play.services.location
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
