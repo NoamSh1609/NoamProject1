@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(go);
         }
          else if (view ==btnAttractionActivity ) {
-        Intent go = new Intent(this, ShowAttractionActivity.class); // מעבר ל-WebsiteReview
+        Intent go = new Intent(this, ShowAttractionsActivity.class); // מעבר ל-WebsiteReview
         startActivity(go);
         }
         else if (view ==btnAddAttraction ) {

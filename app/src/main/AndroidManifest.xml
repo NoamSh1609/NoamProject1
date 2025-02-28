@@ -46,7 +46,10 @@
             android:name=".screens.AddAttraction"
             android:exported="false" />
         <activity
-            android:name=".screens.ShowAttractionActivity"
+            android:name=".screens.ShowAttractionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.ShowAttraction"
             android:exported="false" />
         <activity
             android:name=".screens.WebsiteReview"

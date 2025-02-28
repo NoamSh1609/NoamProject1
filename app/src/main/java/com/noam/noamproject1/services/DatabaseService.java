@@ -25,6 +25,11 @@ public class DatabaseService {
     /// @see Log
     private static final String TAG = "DatabaseService";
 
+    public void getAttractionDetails(String attractionId, DatabaseCallback<Attraction> callback) {
+        // קריאה ל-Firebase לשלוף את המידע של האטרקציה לפי ה-ID
+        getData("Attractions/" + attractionId, Attraction.class, callback);
+    }
+
     /// callback interface for database operations
     /// @param <T> the type of the object to return
     /// @see DatabaseCallback#onCompleted(Object)

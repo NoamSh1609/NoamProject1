@@ -1,5 +1,6 @@
 package com.noam.noamproject1.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,7 @@ import com.noam.noamproject1.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowAttractionActivity extends AppCompatActivity {
+public class ShowAttractionsActivity extends AppCompatActivity {
 
     private RecyclerView rvAttractions;
     private AttractionAdapter attractionAdapter;
@@ -45,7 +46,19 @@ public class ShowAttractionActivity extends AppCompatActivity {
         rvAttractions.setLayoutManager(new LinearLayoutManager(this));
 
         // אתחול ה-Adapter עם הרשימה שתעודכן לפי החיפוש
-        attractionAdapter = new AttractionAdapter(attractionList);
+        attractionAdapter = new AttractionAdapter(attractionList, new AttractionAdapter.AttractionListener() {
+            @Override
+            public void onClick(Attraction attraction) {
+                Intent intent = new Intent(getApplicationContext(), ShowAttraction.class);
+                intent.putExtra("attraction_id", attraction.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(Attraction attraction) {
+
+            }
+        });
         rvAttractions.setAdapter(attractionAdapter);
 
         // קריאה לאטרקציות מ-Firebase

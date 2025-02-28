@@ -19,10 +19,18 @@ import java.util.List;
 
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder> {
 
-    private List<Attraction> attractionList;
 
-    public AttractionAdapter(List<Attraction> attractionList) {
+    public interface AttractionListener {
+        public void onClick(Attraction attraction);
+        public void onLongClick(Attraction attraction);
+    }
+
+    private List<Attraction> attractionList;
+    private AttractionListener attractionListener;
+
+    public AttractionAdapter(List<Attraction> attractionList, final AttractionListener attractionListener) {
         this.attractionList = attractionList;
+        this.attractionListener = attractionListener;
     }
 
     @NonNull
@@ -38,26 +46,14 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
         if (attraction == null) return;
 
         holder.tvAttractionName.setText(attraction.getName());
-        holder.tvAttractionDetails.setText(attraction.getDetail());
         holder.tvAttractionCity.setText(attraction.getCity());
         holder.pic.setImageBitmap(ImageUtil.convertFrom64base(attraction.getPic()));
 
+        holder.itemView.setOnClickListener(v -> attractionListener.onClick(attraction));
 
-        // מוסתר בהתחלה את הטקסט של העיר
-        holder.tvAttractionDetails.setVisibility(View.GONE);
-
-        holder.btnAttraction.setText("קרא עוד....");
-        holder.btnAttraction.setOnClickListener(v -> {
-            // בדיקה אם הטקסט של הכפתור הוא "קרא עוד"
-            if (holder.btnAttraction.getText().toString().equals("קרא עוד....")) {
-                holder.btnAttraction.setText("הסתר");
-                // הצגת התוכן הנוסף (כמו city, אם צריך)
-                holder.tvAttractionDetails.setVisibility(View.VISIBLE);  // הצגת התוכן הנוסף
-            } else {
-                holder.btnAttraction.setText("קרא עוד....");
-                // הסתרת התוכן הנוסף
-                holder.tvAttractionDetails.setVisibility(View.GONE);
-            }
+        holder.itemView.setOnLongClickListener(v -> {
+            attractionListener.onLongClick(attraction);
+            return false;
         });
     }
 
@@ -67,17 +63,14 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
     }
 
     public static class AttractionViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAttractionName, tvAttractionDetails, tvAttractionCity;
-        Button btnAttraction;
+        TextView tvAttractionName, tvAttractionCity;
         ImageView pic;
 
         @SuppressLint("WrongViewCast")
         public AttractionViewHolder(View itemView) {
             super(itemView);
             tvAttractionName = itemView.findViewById(R.id.tvAttractionName);
-            btnAttraction = itemView.findViewById(R.id.btnAttraction);
             tvAttractionCity = itemView.findViewById(R.id.tvAttractionCity);
-            tvAttractionDetails=itemView.findViewById(R.id.tvAttractionDetails);
             pic = itemView.findViewById(R.id.pic);
         }
     }

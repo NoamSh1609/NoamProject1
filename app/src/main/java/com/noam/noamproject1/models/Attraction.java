@@ -1,11 +1,15 @@
 package com.noam.noamproject1.models;
 
+import java.util.List;
+
 public class Attraction {
     protected String id, name, type, city, detail, area;
     protected int capacity;
     protected double rating;
     protected double sumRate;
     protected int numRate;
+
+    List<Review> reviews;
 
     String pic;
 

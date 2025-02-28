@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvAttractionName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Attraction Name"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvAttractionDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Attraction Details"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvAttractionCapacity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Capacity: 100"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvAttractionRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rating: 4.5"
+        android:textSize="16sp" />
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.noam.noamproject1.screens.Admin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,8 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.noam.noamproject1.R;
-import com.noam.noamproject1.adapters.MangerAttractionAdapter;
+import com.noam.noamproject1.adapters.AttractionAdapter;
 import com.noam.noamproject1.models.Attraction;
+import com.noam.noamproject1.screens.ShowAttraction;
 import com.noam.noamproject1.services.DatabaseService;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.List;
 public class AdminShowAttraction extends AppCompatActivity {
 
     private RecyclerView rvAttractions;
-    private MangerAttractionAdapter attractionAdapter;
+    private AttractionAdapter attractionAdapter;
     private List<Attraction> attractionList = new ArrayList<>();
     private List<Attraction> fullAttractionList = new ArrayList<>();
     private EditText etSearchAttraction;
@@ -52,7 +54,20 @@ public class AdminShowAttraction extends AppCompatActivity {
         rvAttractions = findViewById(R.id.rvAttractionDetails);
         rvAttractions.setLayoutManager(new LinearLayoutManager(this));
 
-        attractionAdapter = new MangerAttractionAdapter(attractionList);
+        attractionAdapter = new AttractionAdapter(attractionList, new AttractionAdapter.AttractionListener() {
+            @Override
+            public void onClick(Attraction attraction) {
+                Intent intent = new Intent(getApplicationContext(), ShowAttraction.class);
+                intent.putExtra("attraction_id", attraction.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(Attraction attraction) {
+                // TODO show dialog to delete attraction
+
+            }
+        });
         rvAttractions.setAdapter(attractionAdapter);
 
         databaseService = DatabaseService.getInstance();
