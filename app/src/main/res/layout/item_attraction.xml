@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:background="?android:attr/selectableItemBackground"
-  >
+    android:background="?android:attr/selectableItemBackground">
 
     <!-- תמונת אטרקציה בצד שמאל למעלה -->
     <ImageView
@@ -20,14 +19,11 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <!-- שם האטרקציה בימין למעלה -->
-
-    <!-- עיר האטרקציה מתחת לשם -->
     <TextView
         android:id="@+id/tvAttractionName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="196dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
         android:text="אטרקציה:"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -35,6 +31,7 @@
         app:layout_constraintStart_toEndOf="@id/pic"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- עיר האטרקציה מתחת לשם -->
     <TextView
         android:id="@+id/tvAttractionCity"
         android:layout_width="wrap_content"
@@ -43,25 +40,21 @@
         android:text="עיר:"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/tvAttractionName"
+        app:layout_constraintStart_toStartOf="@id/tvAttractionName"
         app:layout_constraintTop_toBottomOf="@id/tvAttractionName" />
 
-    <!-- כפתור לקריאה נוספת מתחת לעיר -->
-
     <!-- כפתור מועדפים בצד ימין למטה -->
-
     <ImageButton
         android:id="@+id/btnAttractionFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:background="?android:attr/selectableItemBackground"
         android:contentDescription="Favorite"
         android:src="@drawable/star_empty"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pic" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <!-- Divider -->
     <View
@@ -70,8 +63,7 @@
         android:layout_height="10dp"
         android:background="#CCCCCC"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

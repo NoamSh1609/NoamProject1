@@ -67,7 +67,12 @@ public class AdminShowAttraction extends AppCompatActivity {
                 // TODO show dialog to delete attraction
 
             }
-        });
+
+            @Override
+            public void onFavoriteClick(Attraction attraction) {
+
+            }
+        }, );
         rvAttractions.setAdapter(attractionAdapter);
 
         databaseService = DatabaseService.getInstance();
