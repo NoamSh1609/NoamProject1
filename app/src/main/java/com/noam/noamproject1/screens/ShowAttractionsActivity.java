@@ -1,6 +1,7 @@
 package com.noam.noamproject1.screens;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,18 +20,21 @@ import com.noam.noamproject1.models.Attraction;
 import com.noam.noamproject1.services.DatabaseService;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ShowAttractionsActivity extends AppCompatActivity {
 
     private RecyclerView rvAttractions;
     private AttractionAdapter attractionAdapter;
-    // attractionList היא הרשימה המוצגת, fullAttractionList מכילה את כל האטרקציות
     private List<Attraction> attractionList = new ArrayList<>();
     private List<Attraction> fullAttractionList = new ArrayList<>();
+    private Set<String> favoriteAttractions = new HashSet<>();
     private EditText etSearchAttraction;
-    private Button btnGoBack;
-    DatabaseService databaseService;
+    private Button btnGoBack, btnViewFavorites;
+    private DatabaseService databaseService;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +42,15 @@ public class ShowAttractionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_attractions);
 
         databaseService = DatabaseService.getInstance();
+        sharedPreferences = getSharedPreferences("Favorites", MODE_PRIVATE);
+        loadFavorites();
 
-        // אתחול רכיבי ה-XML
         etSearchAttraction = findViewById(R.id.etSearchAttraction);
         btnGoBack = findViewById(R.id.btnGoBack);
+        btnViewFavorites = findViewById(R.id.btnViewFavorites);
         rvAttractions = findViewById(R.id.rvAttractionDetails);
         rvAttractions.setLayoutManager(new LinearLayoutManager(this));
 
-        // אתחול ה-Adapter עם הרשימה שתעודכן לפי החיפוש
         attractionAdapter = new AttractionAdapter(attractionList, new AttractionAdapter.AttractionListener() {
             @Override
             public void onClick(Attraction attraction) {
@@ -55,21 +60,17 @@ public class ShowAttractionsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLongClick(Attraction attraction) {
-
+            public void onFavoriteClick(Attraction attraction) {
+                toggleFavorite(attraction);
             }
-        });
+        }, favoriteAttractions);
         rvAttractions.setAdapter(attractionAdapter);
 
-        // קריאה לאטרקציות מ-Firebase
         fetchAttractions();
 
-        // מאזין לשינויי טקסט בשדה החיפוש
         etSearchAttraction.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // לא נדרש כאן
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -77,35 +78,34 @@ public class ShowAttractionsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-                // לא נדרש כאן
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
-        // דוגמה לטיפול בלחיצה על כפתור "back"
         btnGoBack.setOnClickListener(v -> finish());
+
+        btnViewFavorites.setOnClickListener(v -> {
+            Intent intent = new Intent(ShowAttractionsActivity.this, MyFavoritesActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void fetchAttractions() {
         databaseService.getAttractionList(new DatabaseService.DatabaseCallback<List<Attraction>>() {
             @Override
             public void onCompleted(List<Attraction> attractions) {
-                // עדכון הרשימות עם הנתונים החדשים
                 fullAttractionList.clear();
                 fullAttractionList.addAll(attractions);
-                // התחלת סינון עם שאילתת ריקה – מציג את כל האטרקציות
-                filterAttractions("");
+                filterAttractions(etSearchAttraction.getText().toString());
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e("ShowAttractionActivity", e.getMessage());
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("ShowAttractionsActivity", "Error fetching attractions: ", e);
+                Toast.makeText(getApplicationContext(), "Failed to load attractions.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // פונקציית סינון לפי שם האטרקציה
     private void filterAttractions(String query) {
         attractionList.clear();
         if (query.isEmpty()) {
@@ -118,5 +118,28 @@ public class ShowAttractionsActivity extends AppCompatActivity {
             }
         }
         attractionAdapter.notifyDataSetChanged();
+    }
+
+    private void toggleFavorite(Attraction attraction) {
+        String attractionId = attraction.getId();
+        if (favoriteAttractions.contains(attractionId)) {
+            favoriteAttractions.remove(attractionId);
+            Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show();
+        } else {
+            favoriteAttractions.add(attractionId);
+            Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+        }
+        saveFavorites();
+        attractionAdapter.notifyDataSetChanged();
+    }
+
+    private void loadFavorites() {
+        favoriteAttractions = new HashSet<>(sharedPreferences.getStringSet("favoriteAttractions", new HashSet<>()));
+    }
+
+    private void saveFavorites() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("favoriteAttractions", new HashSet<>(favoriteAttractions));
+        editor.apply();
     }
 }
