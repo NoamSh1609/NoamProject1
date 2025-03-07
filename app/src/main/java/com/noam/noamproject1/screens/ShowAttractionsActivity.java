@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +33,8 @@ public class ShowAttractionsActivity extends AppCompatActivity {
     private List<Attraction> fullAttractionList = new ArrayList<>();
     private Set<String> favoriteAttractions = new HashSet<>();
     private EditText etSearchAttraction;
-    private Button btnGoBack, btnViewFavorites;
+    private Button btnGoBack;
+    private ImageButton btnViewFavorites;
     private DatabaseService databaseService;
     private SharedPreferences sharedPreferences;
 
@@ -57,6 +59,11 @@ public class ShowAttractionsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ShowAttraction.class);
                 intent.putExtra("attraction_id", attraction.getId());
                 startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(Attraction attraction) {
+
             }
 
             @Override
@@ -134,6 +141,7 @@ public class ShowAttractionsActivity extends AppCompatActivity {
     }
 
     private void loadFavorites() {
+        // TODO load favorites from the DB
         favoriteAttractions = new HashSet<>(sharedPreferences.getStringSet("favoriteAttractions", new HashSet<>()));
     }
 

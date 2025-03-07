@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -53,8 +54,11 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
         holder.pic.setImageBitmap(ImageUtil.convertFrom64base(attraction.getPic()));
 
         // Set favorite button state
-        //TODO change logic here
-//        holder.btnFavorite.setChecked(favoriteAttractions.contains(attraction.getId()));
+        if (favoriteAttractions.contains(attraction.getId())) {
+            holder.btnFavorite.setImageResource(R.drawable.star_filled);
+        }else {
+            holder.btnFavorite.setImageResource(R.drawable.star_empty);
+        }
 
         // Handle click events
         holder.itemView.setOnClickListener(v -> attractionListener.onClick(attraction));
@@ -76,7 +80,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
     public static class AttractionViewHolder extends RecyclerView.ViewHolder {
         TextView tvAttractionName, tvAttractionCity;
         ImageView pic;
-        Button btnFavorite;
+        ImageButton btnFavorite;
 
         public AttractionViewHolder(View itemView) {
             super(itemView);

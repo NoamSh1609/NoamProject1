@@ -24,6 +24,7 @@ import com.noam.noamproject1.screens.ShowAttraction;
 import com.noam.noamproject1.services.DatabaseService;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class AdminShowAttraction extends AppCompatActivity {
@@ -72,7 +73,7 @@ public class AdminShowAttraction extends AppCompatActivity {
             public void onFavoriteClick(Attraction attraction) {
 
             }
-        }, );
+        }, new HashSet<>());
         rvAttractions.setAdapter(attractionAdapter);
 
         databaseService = DatabaseService.getInstance();
