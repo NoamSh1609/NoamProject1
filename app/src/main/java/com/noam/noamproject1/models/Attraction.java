@@ -29,18 +29,6 @@ public class Attraction {
         this.pic = pic;
     }
 
-    // קונסטרוקטור שמקבל רק את המידע החיוני (כמו בקוד שלך)
-    public Attraction(String name, String detail, int capacity, String city, String type, String area) {
-        this.name = name;
-        this.detail = detail;
-        this.capacity = capacity;
-        this.city = city;
-        this.type = type;
-        this.area = area;
-        this.rating = 0.0; // Default value
-        this.sumRate = 0.0; // Default value
-        this.numRate = 0; // Default value
-    }
 
     // קונסטרוקטור ריק
     public Attraction() {

@@ -29,8 +29,9 @@ public class TheFirstViewOfTheApp extends AppCompatActivity implements View.OnCl
             return insets;
         });
 
-        if (!AuthenticationService.getInstance().isUserSignedIn()) {
-            Intent intent = new Intent(this, TheFirstViewOfTheApp.class);
+
+        if (AuthenticationService.getInstance().isUserSignedIn()) {
+            Intent intent = new Intent(this, After_Login.class);
             startActivity(intent);
             finish();
             return;

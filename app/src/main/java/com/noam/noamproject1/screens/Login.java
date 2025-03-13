@@ -82,7 +82,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             if (managerPassword.equals(MANAGER_PASSWORD) && email.equals(MANAGER_EMAIL)) {
                 // אם סיסמת מנהל נכונה, נוודא שהמשתמש הוא מנהל
-                Intent goToAdminPage = new Intent(Login.this, ManagerActivity.class);
+                Intent goToAdminPage = new Intent(Login.this, AdminMainPage.class);
                 startActivity(goToAdminPage);
                 return;
             }
@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         @Override
                         public void onCompleted(User user) {
                             SharedPreferencesUtil.saveUser(Login.this, user);
-                            Intent goToMain = new Intent(Login.this, MainActivity.class);
+                            Intent goToMain = new Intent(Login.this,After_Login.class);
                             startActivity(goToMain);
                         }
 

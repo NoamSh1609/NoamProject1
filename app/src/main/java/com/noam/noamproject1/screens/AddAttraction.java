@@ -162,8 +162,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onCompleted(Void object) {
                     Toast.makeText(AddAttraction.this, "הצליח", Toast.LENGTH_SHORT).show();
-                    Intent go = new Intent(AddAttraction.this, MainActivity.class);
-                    startActivity(go);
+                    finish();
                 }
 
                 @Override

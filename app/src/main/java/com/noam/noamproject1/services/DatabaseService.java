@@ -238,7 +238,7 @@ public class DatabaseService {
 
 
     public void deleteAttraction(String id, DatabaseCallback<Boolean> databaseCallback) {
-        deleteData("attractions/" + id, databaseCallback);
+        deleteData("Attractions/" + id, databaseCallback);
     }
 
 
