@@ -7,60 +7,39 @@ import androidx.annotation.Nullable;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.noam.noamproject1.models.Attraction;
+import com.noam.noamproject1.models.Review;
 import com.noam.noamproject1.models.User;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
-/// a service to interact with the Firebase Realtime Database.
-/// this class is a singleton, use getInstance() to get an instance of this class
-/// @see #getInstance()
-/// @see FirebaseDatabase
 public class DatabaseService {
 
-    /// tag for logging
-    /// @see Log
     private static final String TAG = "DatabaseService";
 
     public void getAttractionDetails(String attractionId, DatabaseCallback<Attraction> callback) {
-        // קריאה ל-Firebase לשלוף את המידע של האטרקציה לפי ה-ID
         getData("Attractions/" + attractionId, Attraction.class, callback);
     }
 
-    /// callback interface for database operations
-    /// @param <T> the type of the object to return
-    /// @see DatabaseCallback#onCompleted(Object)
-    /// @see DatabaseCallback#onFailed(Exception)
     public interface DatabaseCallback<T> {
-        /// called when the operation is completed successfully
         void onCompleted(T object);
 
-        /// called when the operation fails with an exception
         void onFailed(Exception e);
     }
 
-    /// the instance of this class
-    /// @see #getInstance()
     private static DatabaseService instance;
 
-    /// the reference to the database
-    /// @see DatabaseReference
-    /// @see FirebaseDatabase#getReference()
     private final DatabaseReference databaseReference;
 
-    /// use getInstance() to get an instance of this class
-    /// @see DatabaseService#getInstance()
     private DatabaseService() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
 
-    /// get an instance of this class
-    /// @return an instance of this class
-    /// @see DatabaseService
     public static DatabaseService getInstance() {
         if (instance == null) {
             instance = new DatabaseService();
@@ -68,15 +47,6 @@ public class DatabaseService {
         return instance;
     }
 
-
-    // private generic methods to write and read data from the database
-
-    /// write data to the database at a specific path
-    /// @param path the path to write the data to
-    /// @param data the data to write (can be any object, but must be serializable, i.e. must have a default constructor and all fields must have getters and setters)
-    /// @param callback the callback to call when the operation is completed
-    /// @return void
-    /// @see DatabaseCallback
     private void writeData(@NotNull final String path, @NotNull final Object data, final @Nullable DatabaseCallback<Void> callback) {
         readData(path).setValue(data).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -89,23 +59,10 @@ public class DatabaseService {
         });
     }
 
-    /// read data from the database at a specific path
-    /// @param path the path to read the data from
-    /// @return a DatabaseReference object to read the data from
-    /// @see DatabaseReference
-
     private DatabaseReference readData(@NotNull final String path) {
         return databaseReference.child(path);
     }
 
-
-    /// get data from the database at a specific path
-    /// @param path the path to get the data from
-    /// @param clazz the class of the object to return
-    /// @param callback the callback to call when the operation is completed
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see Class
     private <T> void getData(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull final DatabaseCallback<T> callback) {
         readData(path).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -117,7 +74,6 @@ public class DatabaseService {
             callback.onCompleted(data);
         });
     }
-
 
     private <T> void getDataList(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull final DatabaseCallback<List<T>> callback) {
         readData(path).get().addOnCompleteListener(task -> {
@@ -138,22 +94,14 @@ public class DatabaseService {
 
     private void deleteData(String path, DatabaseCallback<Boolean> databaseCallback) {
         readData(path).removeValue()
-            .addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    // קריאה ל-onCompleted אם הצליח
-                    databaseCallback.onCompleted(true);
-                } else {
-                    // קריאה ל-onFailed אם נכשל
-                    databaseCallback.onFailed(task.getException());
-                }
-            });
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        databaseCallback.onCompleted(true);
+                    } else {
+                        databaseCallback.onFailed(task.getException());
+                    }
+                });
     }
-
-    /// generate a new id for a new object in the database
-    /// @param path the path to generate the id for
-    /// @return a new id for the object
-    /// @see String
-    /// @see DatabaseReference#push()
 
     private String generateNewId(@NotNull final String path) {
         return databaseReference.child(path).push().getKey();
@@ -163,25 +111,11 @@ public class DatabaseService {
         return this.generateNewId("Attractions/");
     }
 
-
-    // end of private methods for reading and writing data
-
-    // public methods to interact with the database
-
-    /// create a new user in the database
-    /// @param user the user object to create
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive void
-    ///            if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see User
     public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
         writeData("Users/" + user.getId(), user, callback);
     }
 
     public void deleteUser(String id, DatabaseCallback<Boolean> databaseCallback) {
-        // Delete the user from the "Users" node in Firebase Realtime Database
         deleteData("Users/" + id, databaseCallback);
     }
 
@@ -189,27 +123,10 @@ public class DatabaseService {
         createNewUser(currentUser, databaseCallback);
     }
 
-
-    /// get a user from the database
-    /// @param uid the id of the user to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the user object
-    ///             if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see User
     public void getAttraction(@NotNull final String aid, @NotNull final DatabaseCallback<Attraction> callback) {
         getData("Attractions/" + aid, Attraction.class, callback);
     }
 
-    /// create a new user in the database
-    /// @param user the user object to create
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive void
-    ///            if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see User
     public void createNewAttraction(@NotNull final Attraction att, @Nullable final DatabaseCallback<Void> callback) {
         writeData("Attractions/" + att.getId(), att, callback);
     }
@@ -218,29 +135,35 @@ public class DatabaseService {
         getDataList("Attractions", Attraction.class, callback);
     }
 
-
-    /// get a user from the database
-    /// @param uid the id of the user to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the user object
-    ///             if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see User
     public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
         getData("Users/" + uid, User.class, callback);
     }
-
 
     public void getUserList(DatabaseCallback<List<User>> callback) {
         getDataList("Users", User.class, callback);
     }
 
-
     public void deleteAttraction(String id, DatabaseCallback<Boolean> databaseCallback) {
         deleteData("Attractions/" + id, databaseCallback);
     }
 
+    public void saveReview(String attractionId, String userId, String reviewText, float rating, DatabaseCallback<Void> callback) {
+        // יצירת אובייקט Review עם התגובה והדירוג
+        Review review = new Review(generateNewId("Attractions/" + attractionId + "/Reviews"), userId, reviewText, rating, new Date());
 
+        // יצירת מזהה ייחודי לתגובה
+        String reviewId = generateNewId("Attractions/" + attractionId + "/Reviews");
 
+        if (reviewId != null) {
+            // כתיבת התגובה לדאטה בייס תחת הנתיב המתאים
+            writeData("Attractions/" + attractionId + "/Reviews/" + reviewId, review, callback);
+        } else {
+            callback.onFailed(new Exception("Failed to generate review ID"));
+        }
+    }
+
+    // קבלת רשימה של תגובות ודירוגים עבור אטרקציה מסוימת
+    public void getReviews(String attractionId, DatabaseCallback<List<Review>> callback) {
+        getDataList("Attractions/" + attractionId + "/Reviews", Review.class, callback);
+    }
 }
