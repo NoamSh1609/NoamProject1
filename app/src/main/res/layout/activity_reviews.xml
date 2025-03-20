@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.ReviewsActivity">
+
+    <!-- כותרת של הדף -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="חוות דעת"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- תיבת טקסט לכתיבת חוות דעת -->
+    <EditText
+        android:id="@+id/reviewEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="מה אתה חושב על האתר?"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:gravity="top"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- דירוג עם RatingBar -->
+    <TextView
+        android:id="@+id/ratingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="דרג את האתר"
+        android:layout_marginBottom="10dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/reviewEditText"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="0.5"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@id/ratingLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- כפתור לשלוח את חוות הדעת -->
+    <Button
+        android:id="@+id/submitReviewButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="שלח חוות דעת"
+        android:background="?android:attr/colorAccent"
+        app:layout_constraintTop_toBottomOf="@id/ratingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!-- TextView להצגת כל הביקורות -->
+    <TextView
+        android:id="@+id/reviewsTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="הביקורות שלך יופיעו כאן"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/submitReviewButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
