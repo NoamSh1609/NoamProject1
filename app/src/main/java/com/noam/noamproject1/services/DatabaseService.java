@@ -147,19 +147,12 @@ public class DatabaseService {
         deleteData("Attractions/" + id, databaseCallback);
     }
 
-    public void saveReview(String attractionId, String userId, String reviewText, float rating, DatabaseCallback<Void> callback) {
-        // יצירת אובייקט Review עם התגובה והדירוג
-        Review review = new Review(generateNewId("Attractions/" + attractionId + "/Reviews"), userId, reviewText, rating, new Date());
+    public void saveReview(String attractionId, Review review, DatabaseCallback<Void> callback) {
+        writeData("Attractions/" + attractionId + "/Reviews/"+ review.getReviewId(), review, callback);
+    }
 
-        // יצירת מזהה ייחודי לתגובה
-        String reviewId = generateNewId("Attractions/" + attractionId + "/Reviews");
-
-        if (reviewId != null) {
-            // כתיבת התגובה לדאטה בייס תחת הנתיב המתאים
-            writeData("Attractions/" + attractionId + "/Reviews/" + reviewId, review, callback);
-        } else {
-            callback.onFailed(new Exception("Failed to generate review ID"));
-        }
+    public String generateNewAttractionReviewId(String attractionId){
+        return this.generateNewId("Attractions/" + attractionId + "/Reviews");
     }
 
     // קבלת רשימה של תגובות ודירוגים עבור אטרקציה מסוימת

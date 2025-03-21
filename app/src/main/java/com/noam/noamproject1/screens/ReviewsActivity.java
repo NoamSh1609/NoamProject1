@@ -14,6 +14,8 @@ import com.noam.noamproject1.R;
 import com.noam.noamproject1.models.Review;
 import com.noam.noamproject1.services.DatabaseService;
 
+import java.util.Date;
+
 public class ReviewsActivity extends AppCompatActivity {
 
     private EditText reviewEditText;
@@ -48,7 +50,9 @@ public class ReviewsActivity extends AppCompatActivity {
                 } else {
                     // שמירה ב-DatabaseService
                     String userId = "user123"; // יש להחליף בערך אמיתי של מזהה המשתמש
-                    DatabaseService.getInstance().saveReview(attractionId, userId, reviewText, rating, new DatabaseService.DatabaseCallback<Void>() {
+                    String reviewId = DatabaseService.getInstance().generateNewAttractionReviewId(attractionId);
+                    Review review = new Review(reviewId, userId, reviewText, rating, new Date());
+                    DatabaseService.getInstance().saveReview(attractionId, review, new DatabaseService.DatabaseCallback<Void>() {
                         @Override
                         public void onCompleted(Void aVoid) {
                             Toast.makeText(ReviewsActivity.this, "חוות דעת נשלחה בהצלחה", Toast.LENGTH_SHORT).show();
