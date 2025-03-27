@@ -159,4 +159,5 @@ public class DatabaseService {
     public void getReviews(String attractionId, DatabaseCallback<List<Review>> callback) {
         getDataList("Attractions/" + attractionId + "/Reviews", Review.class, callback);
     }
+
 }
