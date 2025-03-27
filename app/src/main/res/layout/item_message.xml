@@ -1,9 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/messageTextView"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:textSize="16sp"
-    android:background="@android:color/darker_gray"
-    android:textColor="@android:color/white"/>
+    android:orientation="horizontal">
+
+    <!-- הודעת טקסט -->
+    <TextView
+        android:id="@+id/messageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chat_bubble"
+        android:padding="12dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:maxWidth="250dp"
+        android:elevation="2dp"
+        android:text="זה עיצוב של הודעה בצ'אט"
+        android:layout_marginEnd="8dp"/>
+</LinearLayout>

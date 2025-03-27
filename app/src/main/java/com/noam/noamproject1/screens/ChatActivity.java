@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.adapters.ChatAdapter;
 import com.noam.noamproject1.models.Message;
+import com.noam.noamproject1.services.AuthenticationService;
 import com.noam.noamproject1.services.ChatService;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +23,16 @@ public class ChatActivity extends AppCompatActivity {
     private EditText editMessage;
     private Button btnSend;
 
-    private String userId = "user1"; // מזהה המשתמש הנוכחי (צריך להיות דינמי)
-    private String receiverId = "user2"; // מזהה המשתמש המקבל (צריך להיות דינמי)
+    private String userId;
+    private String receiverId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        userId = AuthenticationService.getInstance().getCurrentUserId();
+        receiverId = "כובל צק"; //TODO getIntent().getStringExtra("OtherUser");
 
         chatService = new ChatService();
 
