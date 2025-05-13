@@ -16,7 +16,7 @@ import com.noam.noamproject1.utils.ImageUtil;
 
 public class ShowAttraction extends AppCompatActivity {
 
-    private TextView tvAttractionName, tvAttractionDetail, tvAttractionCapacity, tvAttractionRating;
+    private TextView tvAttractionName,temp, tvAttractionDetail, tvAttractionCapacity, tvAttractionRating;
     private ImageView pic;
     private Button commentButton;
     private String attractionId;

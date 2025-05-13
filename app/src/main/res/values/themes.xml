@@ -1,9 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- עיצוב בסיסי של האפליקציה -->
     <style name="Base.Theme.NoamProject1" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- צבעים ראשיים מתוך colors.xml -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- צבע משני (accent) -->
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- צבעי רקע כללי -->
+        <item name="android:windowBackground">@color/white</item>
+
+        <!-- ללא ActionBar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- צבע של שורת מצב -->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
+    <!-- עיצוב מותאם להרחבות עתידיות -->
     <style name="Theme.NoamProject1" parent="Base.Theme.NoamProject1" />
 </resources>

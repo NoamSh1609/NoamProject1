@@ -1,7 +1,10 @@
 package com.noam.noamproject1.screens;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,6 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.services.AuthenticationService;
+import com.noam.noamproject1.services.WeatherApiService;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TheFirstViewOfTheApp extends AppCompatActivity implements View.OnClickListener {
     private Button btnform, btnLoginMain, btnWebsiteR;
@@ -27,6 +34,25 @@ public class TheFirstViewOfTheApp extends AppCompatActivity implements View.OnCl
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+
+        // Inside your Activity (e.g., TheFirstViewOfTheApp.java)
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                WeatherApiService apiService = new WeatherApiService();
+                String response = apiService.getCurrentWeather("London");
+
+                handler.post(() -> {
+                    // Update UI with response
+                    System.out.println("Weather: " + response);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
 
