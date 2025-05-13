@@ -9,51 +9,56 @@
     <!-- תמונה בצד שמאל עם רווח מימין -->
     <ImageView
         android:id="@+id/pic"
-        android:layout_width="150dp"
-        android:layout_height="170dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginEnd="16dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <!-- קבוצת טקסטים המסודרים אנכית -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/tvAttractionName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Attraction Name"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvAttractionDetail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Attraction Details"
-            android:textSize="6sp" />
+            <TextView
+                android:id="@+id/tvAttractionName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Attraction Name"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvAttractionCapacity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Attraction capacity"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tvAttractionDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Attraction Details"
+                android:textSize="22sp" />
 
-        <TextView
-            android:id="@+id/tvAttractionRating"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rating: 0"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tvAttractionCapacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Attraction capacity"
+                android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="תגובות" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvAttractionRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rating: 0"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="תגובות" />
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
