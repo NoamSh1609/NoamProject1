@@ -16,7 +16,7 @@ import com.noam.noamproject1.utils.ImageUtil;
 
 public class ShowAttraction extends AppCompatActivity {
 
-    private TextView tvAttractionName,temp, tvAttractionDetail, tvAttractionCapacity, tvAttractionRating;
+    private TextView tvAttractionName, tvAttractionDetail, tvAttractionCapacity;
     private ImageView pic;
     private Button commentButton;
     private String attractionId;
@@ -26,11 +26,13 @@ public class ShowAttraction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_attraction);
 
+
+
         // אתחול רכיבי ה-UI
         tvAttractionName = findViewById(R.id.tvAttractionName);
         tvAttractionDetail = findViewById(R.id.tvAttractionDetail);
         tvAttractionCapacity = findViewById(R.id.tvAttractionCapacity);
-        tvAttractionRating = findViewById(R.id.tvAttractionRating);
+//        tvAttractionRating = findViewById(R.id.tvAttractionRating);
         pic = findViewById(R.id.pic);
         commentButton = findViewById(R.id.button); // ודא שקיימת כפתור עם id="button" ב-XML
 
@@ -60,7 +62,7 @@ public class ShowAttraction extends AppCompatActivity {
                 tvAttractionName.setText(attraction.getName());
                 tvAttractionDetail.setText(attraction.getDetail());
                 tvAttractionCapacity.setText("Capacity: " + attraction.getCapacity());
-                tvAttractionRating.setText("Rating: " + attraction.getRating());
+//                tvAttractionRating.setText("Rating: " + attraction.getRating());
 
                 // המרת התמונה מ-Base64 והצגתה ב-ImageView
                 pic.setImageBitmap(ImageUtil.convertFrom64base(attraction.getPic()));
@@ -72,4 +74,79 @@ public class ShowAttraction extends AppCompatActivity {
             }
         });
     }
+
+
+    private void translateCityToEnglishAndFetchTemp(String hebrewCityName) {
+        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(hebrewCityName, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                String englishCityName = addresses.get(0).getLocality();
+                if (englishCityName == null || englishCityName.isEmpty()) {
+                    // fallback: use address line
+                    englishCityName = addresses.get(0).getAddressLine(0);
+                }
+                if (englishCityName != null) {
+                    Log.d("CityTranslation", "Translated to: " + englishCityName);
+                    getTemp(englishCityName); // ממשיך לפעולה של קבלת טמפרטורה
+                } else {
+                    Toast.makeText(this, "לא ניתן לתרגם את העיר", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "עיר לא נמצאה", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "שגיאה בתרגום העיר", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    private void getTemp(String hebrewCityName) {
+        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(hebrewCityName, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                String englishCityName = addresses.get(0).getLocality();
+                if (englishCityName == null || englishCityName.isEmpty()) {
+                    englishCityName = addresses.get(0).getAddressLine(0);
+                }
+
+                if (englishCityName != null) {
+                    String apiKey = "YOUR_API_KEY"; // ← כאן שים את ה-API key שלך
+                    String url = "https://api.openweathermap.org/data/2.5/weather?q=" +
+                            Uri.encode(englishCityName) +
+                            "&units=metric&appid=" + apiKey;
+
+                    RequestQueue queue = Volley.newRequestQueue(this);
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                            response -> {
+                                try {
+                                    JSONObject main = response.getJSONObject("main");
+                                    double temp = main.getDouble("temp");
+                                    Toast.makeText(this, "הטמפרטורה ב" + englishCityName + ": " + temp + "°C", Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(this, "שגיאה בקריאת הנתונים", Toast.LENGTH_SHORT).show();
+                                }
+                            },
+                            error -> {
+                                error.printStackTrace();
+                                Toast.makeText(this, "שגיאה בגישה לשרת", Toast.LENGTH_SHORT).show();
+                            });
+
+                    queue.add(jsonObjectRequest);
+                } else {
+                    Toast.makeText(this, "לא ניתן לתרגם את שם העיר", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "עיר לא נמצאה", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "שגיאה בתרגום שם העיר", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }

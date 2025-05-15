@@ -9,80 +9,119 @@
     android:orientation="vertical"
     tools:context=".screens.After_Login">
 
-    <!-- Toolbar מקצועי עם תפריט -->
+    <!-- טולבר עליון -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:backgroundTint="#78909C"
+        android:backgroundTint="#546E7A"
         app:title="שלום המטייל"
         app:titleTextColor="@android:color/white"
         app:menu="@menu/main_menu" />
 
-    <!-- תוכן -->
-    <LinearLayout
+    <!-- תוכן במסך -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:fillViewport="true">
 
-        <!-- תמונה -->
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="24dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/logo" />
-
-        <!-- כפתורים -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAttractionActivity"
-            style="@style/Widget.MaterialComponents.Button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#64B5F6"
-            android:text="יעדים"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddAttraction"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#81C784"
-            android:text="הוספת יעד"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            <!-- לוגו / תמונה -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                android:layout_marginBottom="24dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/My_FavAt"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#FFB74D"
-            android:text="המועדפים שלי"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="לוגו"
+                    app:srcCompat="@drawable/logo" />
+            </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogout"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#D32F2F"
-            android:text="התנתקות"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            <!-- כפתורים בתוך קופסה -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="12dp"
+                android:padding="20dp"
+                android:backgroundTint="@android:color/transparent">
 
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
 
+                    <!-- כפתור: יעדים -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAttractionActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="#64B5F6"
+                        android:text="יעדים"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        app:cornerRadius="16dp"
+                        app:elevation="4dp" />
+
+                    <!-- כפתור: הוספת יעד -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddAttraction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="#81C784"
+                        android:text="הוספת יעד"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        app:cornerRadius="16dp"
+                        app:elevation="4dp" />
+
+                    <!-- כפתור: מועדפים -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/My_FavAt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="#FFB74D"
+                        android:text="המועדפים שלי"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        app:cornerRadius="16dp"
+                        app:elevation="4dp" />
+
+                    <!-- כפתור: התנתקות -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnLogout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#E53935"
+                        android:text="התנתקות"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        app:cornerRadius="16dp"
+                        app:elevation="4dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -43,12 +44,15 @@ public class TheFirstViewOfTheApp extends AppCompatActivity implements View.OnCl
 
         executor.execute(() -> {
             try {
+
+
+
                 WeatherApiService apiService = new WeatherApiService();
                 String response = apiService.getCurrentWeather("London");
 
                 handler.post(() -> {
                     // Update UI with response
-                    System.out.println("Weather: " + response);
+                    Log.d("!!!!!!!!!!!!","Weather: " + response);
                 });
             } catch (Exception e) {
                 e.printStackTrace();

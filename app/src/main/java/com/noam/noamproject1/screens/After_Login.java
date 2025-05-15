@@ -2,6 +2,7 @@ package com.noam.noamproject1.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.services.AuthenticationService;
 import com.noam.noamproject1.utils.SharedPreferencesUtil;
@@ -44,6 +46,10 @@ public class After_Login extends AppCompatActivity implements View.OnClickListen
     }
 
     private void initViews() {
+        // Set the custom toolbar as the ActionBar
+        MaterialToolbar toolbar = findViewById(R.id.topAppBar);
+        setSupportActionBar(toolbar);
+
         btnLogout = findViewById(R.id.btnLogout);
         btnAttractionActivity = findViewById(R.id.btnAttractionActivity);
         btnAddAttraction = findViewById(R.id.btnAddAttraction);
@@ -74,7 +80,6 @@ public class After_Login extends AppCompatActivity implements View.OnClickListen
         Intent intent = new Intent(this, TheFirstViewOfTheApp.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
     }
 
     // === תפריט שלוש נקודות ===
