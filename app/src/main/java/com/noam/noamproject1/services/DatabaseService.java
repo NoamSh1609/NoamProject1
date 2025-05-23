@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.noam.noamproject1.models.Attraction;
+import com.noam.noamproject1.models.Comment;
 import com.noam.noamproject1.models.Review;
 import com.noam.noamproject1.models.User;
 
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -160,4 +162,19 @@ public class DatabaseService {
         getDataList("Attractions/" + attractionId + "/Reviews", Review.class, callback);
     }
 
+    public void getComments(String itemId, DatabaseCallback<List<Comment>> callback) {
+        getDataList("comments/" + itemId, Comment.class, new HashMap<>(), callback);
+    }
+
+    public void writeNewComment(String itemId, Comment comment, DatabaseCallback<Void> callback) {
+        writeData("comments/" + itemId + "/" + comment.getCommentId(), comment, callback);
+    }
+
+    public String generateNewCommentId(String itemId) {
+        return generateNewId("comments/" + itemId);
+    }
+
+    public void removeComment(String itemId, String commentId, DatabaseCallback<Void> callback) {
+        deleteData("comments/" + itemId + "/"+ commentId, callback)   ;
+    }
 }

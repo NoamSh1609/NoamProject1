@@ -154,5 +154,15 @@ public class SharedPreferencesUtil {
         return contains(context, "uid");
     }
 
+    public static boolean isAdmin(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("isAdmin", false);
+    }
 
+    public static void setIsAdmin(Context context, boolean isAdmin) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isAdmin", isAdmin);
+        editor.apply();
+    }
 }

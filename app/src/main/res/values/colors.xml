@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- צבעים כלליים -->
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <!-- צבעים עיקריים של האפליקציה -->
-    <color name="colorAccent">#FF4081</color> <!-- צבע ורוד בהיר -->
-    <color name="colorPrimary">#6200EE</color> <!-- צבע כחול כהה -->
-    <color name="colorPrimaryDark">#3700B3</color> <!-- צבע כחול כהה יותר -->
+    <!-- Main colors -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dark_gray">#666666</color>
+    
+    <!-- App Theme Colors -->
+    <color name="colorPrimary">#405DE6</color>
+    <color name="colorPrimaryDark">#0B48C2</color>
+    <color name="colorAccent">#E1306C</color>
+    
+    <!-- Instagram Gradient Colors -->
+    <color name="instagram_blue">#405DE6</color>
+    <color name="instagram_purple">#5851DB</color>
+    <color name="instagram_pink">#E1306C</color>
+    <color name="instagram_red">#C13584</color>
+    <color name="instagram_orange">#FD1D1D</color>
+    <color name="instagram_yellow">#F56040</color>
+    
+    <!-- UI Colors -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+    <color name="text_primary">#262626</color>
+    <color name="text_secondary">#8E8E8E</color>
+    <color name="divider">#DBDBDB</color>
+    <color name="link_color">#00376B</color>
+    <color name="error">#ED4956</color>
+    <color name="success">#78DE45</color>
+    <color name="background">#F5F5F5</color>
 </resources>

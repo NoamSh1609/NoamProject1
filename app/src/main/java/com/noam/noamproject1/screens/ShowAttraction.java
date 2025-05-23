@@ -2,12 +2,16 @@ package com.noam.noamproject1.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.models.Attraction;
@@ -20,21 +24,16 @@ public class ShowAttraction extends AppCompatActivity {
     private ImageView pic;
     private Button commentButton;
     private String attractionId;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_attraction);
 
-
-
         // אתחול רכיבי ה-UI
-        tvAttractionName = findViewById(R.id.tvAttractionName);
-        tvAttractionDetail = findViewById(R.id.tvAttractionDetail);
-        tvAttractionCapacity = findViewById(R.id.tvAttractionCapacity);
-//        tvAttractionRating = findViewById(R.id.tvAttractionRating);
-        pic = findViewById(R.id.pic);
-        commentButton = findViewById(R.id.button); // ודא שקיימת כפתור עם id="button" ב-XML
+        initializeViews();
+        setupToolbar();
 
         // קבלת ה-ID של האטרקציה שנבחרה
         attractionId = getIntent().getStringExtra("attraction_id");
@@ -43,13 +42,48 @@ public class ShowAttraction extends AppCompatActivity {
             fetchAttractionDetails(attractionId);
         } else {
             Toast.makeText(this, "Attraction ID is missing", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         // מעבר לעמוד חוות דעת בעת לחיצה על כפתור התגובות
         commentButton.setOnClickListener(v -> {
             Intent intent = new Intent(ShowAttraction.this, ReviewsActivity.class);
+            intent.putExtra("ATTRACTION_ID", attractionId);
             startActivity(intent);
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_show_attraction, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_edit_user) {
+            startActivity(new Intent(this, EditUserActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void initializeViews() {
+        toolbar = findViewById(R.id.toolbar);
+        tvAttractionName = findViewById(R.id.tvAttractionName);
+        tvAttractionDetail = findViewById(R.id.tvAttractionDetail);
+        tvAttractionCapacity = findViewById(R.id.tvAttractionCapacity);
+        pic = findViewById(R.id.pic);
+        commentButton = findViewById(R.id.button);
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     // שליפת המידע על האטרקציה לפי ה-ID
@@ -58,14 +92,7 @@ public class ShowAttraction extends AppCompatActivity {
         databaseService.getAttractionDetails(attractionId, new DatabaseService.DatabaseCallback<Attraction>() {
             @Override
             public void onCompleted(Attraction attraction) {
-                // עדכון UI עם המידע שהתקבל
-                tvAttractionName.setText(attraction.getName());
-                tvAttractionDetail.setText(attraction.getDetail());
-                tvAttractionCapacity.setText("Capacity: " + attraction.getCapacity());
-//                tvAttractionRating.setText("Rating: " + attraction.getRating());
-
-                // המרת התמונה מ-Base64 והצגתה ב-ImageView
-                pic.setImageBitmap(ImageUtil.convertFrom64base(attraction.getPic()));
+                updateUI(attraction);
             }
 
             @Override
@@ -75,6 +102,20 @@ public class ShowAttraction extends AppCompatActivity {
         });
     }
 
+    private void updateUI(Attraction attraction) {
+        // עדכון כותרת ה-Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(attraction.getName());
+        }
+
+        // עדכון UI עם המידע שהתקבל
+        tvAttractionName.setText(attraction.getName());
+        tvAttractionDetail.setText(attraction.getDetail());
+        tvAttractionCapacity.setText(String.format("%d מבקרים", attraction.getCapacity()));
+
+        // המרת התמונה מ-Base64 והצגתה ב-ImageView
+        pic.setImageBitmap(ImageUtil.convertFrom64base(attraction.getPic()));
+    }
 
     private void translateCityToEnglishAndFetchTemp(String hebrewCityName) {
         Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
@@ -99,7 +140,6 @@ public class ShowAttraction extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "שגיאה בתרגום העיר", Toast.LENGTH_SHORT).show();
         }
-
     }
     private void getTemp(String hebrewCityName) {
         Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
@@ -147,6 +187,4 @@ public class ShowAttraction extends AppCompatActivity {
             Toast.makeText(this, "שגיאה בתרגום שם העיר", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
