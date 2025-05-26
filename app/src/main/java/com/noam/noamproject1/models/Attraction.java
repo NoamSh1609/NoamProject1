@@ -5,6 +5,7 @@ import java.util.List;
 public class Attraction {
     protected String id, name, type, city, detail, area;
     protected int capacity;
+    protected int currentVisitors; // מספר המבקרים הנוכחי
     protected double rating;
     protected double sumRate;
     protected int numRate;
@@ -23,6 +24,7 @@ public class Attraction {
         this.detail = detail;
         this.area = area;
         this.capacity = capacity;
+        this.currentVisitors = 0; // מאתחל את מספר המבקרים ל-0
         this.rating = rating;
         this.sumRate = sumRate;
         this.numRate = numRate;
@@ -32,6 +34,7 @@ public class Attraction {
 
     // קונסטרוקטור ריק
     public Attraction() {
+        this.currentVisitors = 0;
     }
 
     // Getter ו- Setter לכל שדה
@@ -123,6 +126,43 @@ public class Attraction {
         this.pic = pic;
     }
 
+    public int getCurrentVisitors() {
+        return currentVisitors;
+    }
+
+    public void setCurrentVisitors(int currentVisitors) {
+        this.currentVisitors = currentVisitors;
+    }
+
+    // מתודה להוספת מבקר
+    public boolean addVisitor() {
+        if (currentVisitors < capacity) {
+            currentVisitors++;
+            return true;
+        }
+        return false;
+    }
+
+    // מתודה להורדת מבקר
+    public boolean removeVisitor() {
+        if (currentVisitors > 0) {
+            currentVisitors--;
+            return true;
+        }
+        return false;
+    }
+
+    // מתודה לבדיקה האם יש מקום לעוד מבקרים
+    public boolean hasAvailableSpace() {
+        return currentVisitors < capacity;
+    }
+
+    // מתודה לקבלת אחוז התפוסה
+    public double getOccupancyPercentage() {
+        if (capacity == 0) return 0;
+        return (currentVisitors * 100.0) / capacity;
+    }
+
     @Override
     public String toString() {
         return "Attraction{" +
@@ -133,6 +173,7 @@ public class Attraction {
                 ", detail='" + detail + '\'' +
                 ", area='" + area + '\'' +
                 ", capacity=" + capacity +
+                ", currentVisitors=" + currentVisitors +
                 ", rating=" + rating +
                 ", sumRate=" + sumRate +
                 ", numRate=" + numRate +
