@@ -1,0 +1,102 @@
+@startuml
+class Comment {
+- String commentId
+- String userId
+- String commentText
+- float rating
+- String userName
++ String getUserName()
++ void setUserName(String)
++ String getCommentId()
++ void setCommentId(String)
++ String getUserId()
++ void setUserId(String)
++ String getCommentText()
++ void setCommentText(String)
++ float getRating()
++ void setRating(float)
+}
+
+
+class Review {
+- String reviewId
+- String userId
+- String reviewText
+- float rating
+- Date reviewDate
++ String getReviewId()
++ String getUserId()
++ String getReviewText()
++ float getRating()
++ Date getReviewDate()
++ void setReviewId(String)
++ void setUserId(String)
++ void setReviewText(String)
++ void setRating(float)
++ void setReviewDate(Date)
++ String toString()
+}
+
+
+class User {
+- String id
+- String fname
++ String toString()
++ String getId()
++ String getFname()
++ String getLname()
++ String getPhone()
++ String getEmail()
++ String getPassword()
++ void setId(String)
++ void setFname(String)
++ void setLname(String)
++ void setPhone(String)
++ void setEmail(String)
++ void setPassword(String)
+}
+
+
+class Attraction {
+# String id
+# int capacity
+# double rating
+# double sumRate
+# int numRate
+~ List<Review> reviews
+~ String pic
++ String getId()
++ void setId(String)
++ String getName()
++ void setName(String)
++ String getType()
++ void setType(String)
++ String getCity()
++ void setCity(String)
++ String getDetail()
++ void setDetail(String)
++ String getArea()
++ void setArea(String)
++ int getCapacity()
++ void setCapacity(int)
++ double getRating()
++ void setRating(double)
++ double getSumRate()
++ void setSumRate(double)
++ int getNumRate()
++ void setNumRate(int)
++ String getPic()
++ void setPic(String)
++ String toString()
+}
+
+
+class Destination {
+# ArrayList<Attraction> attractions
+}
+
+class TranslateHelper {
++ {static} String translateToEnglish(String)
+}
+
+@enduml

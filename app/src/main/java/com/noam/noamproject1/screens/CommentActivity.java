@@ -46,7 +46,7 @@ public class CommentActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewComments);
         commentInput = findViewById(R.id.commentInput);
         btnSubmitComment = findViewById(R.id.btnSubmitComment);
-        ratingBar = findViewById(R.id.ratingBar); // ה-RatingBar
+        ratingBar = findViewById(R.id.ratingBarComment); // ה-RatingBar
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentList = new ArrayList<>();
@@ -72,12 +72,12 @@ public class CommentActivity extends AppCompatActivity {
                 Toast.makeText(CommentActivity.this, "אנא הזן תגובה ודירוג", Toast.LENGTH_SHORT).show();
             }
         });
-
-        Button btnGoToItemDetails = findViewById(R.id.btnGoToItemDetail);
-
-        btnGoToItemDetails.setOnClickListener(v -> {
-            finish();
-        });
+//
+//        Button btnGoToItemDetails = findViewById(R.id.btnGoToItemDetail);
+//
+//        btnGoToItemDetails.setOnClickListener(v -> {
+//            finish();
+//        });
     }
 
     private void loadComments() {
@@ -98,8 +98,8 @@ public class CommentActivity extends AppCompatActivity {
 
     private void submitComment(String commentText, float rating) {
         User user = SharedPreferencesUtil.getUser(this);
-        String currentUserId = user.getUid();
-        String currentUserName = user.getfName() + " " + user.getlName();
+        String currentUserId = user.getId();
+        String currentUserName = user.getFname() + " " + user.getLname();
         String commentId = DatabaseService.getInstance().generateNewCommentId(itemId);
 
         Comment comment = new Comment(commentId, currentUserId, commentText, rating, currentUserName);

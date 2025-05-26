@@ -163,7 +163,7 @@ public class DatabaseService {
     }
 
     public void getComments(String itemId, DatabaseCallback<List<Comment>> callback) {
-        getDataList("comments/" + itemId, Comment.class, new HashMap<>(), callback);
+        getDataList("comments/" + itemId, Comment.class, callback);
     }
 
     public void writeNewComment(String itemId, Comment comment, DatabaseCallback<Void> callback) {
@@ -174,7 +174,7 @@ public class DatabaseService {
         return generateNewId("comments/" + itemId);
     }
 
-    public void removeComment(String itemId, String commentId, DatabaseCallback<Void> callback) {
+    public void removeComment(String itemId, String commentId, DatabaseCallback<Boolean> callback) {
         deleteData("comments/" + itemId + "/"+ commentId, callback)   ;
     }
 }

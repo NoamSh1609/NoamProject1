@@ -109,9 +109,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             return;
         }
 
-        DatabaseService.getInstance().removeComment(itemId, comment.getCommentId(), new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().removeComment(itemId, comment.getCommentId(), new DatabaseService.DatabaseCallback<Boolean>() {
             @Override
-            public void onCompleted(Void object) {
+            public void onCompleted(Boolean object) {
                 Log.d("CommentAdapter", "Comment deleted successfully from Firebase.");
 
                 // מחיקה מהרשימה המקומית ועדכון ה-RecyclerView

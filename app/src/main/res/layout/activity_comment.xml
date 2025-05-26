@@ -1,41 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp"
-    android:layout_margin="8dp"
-    android:background="@drawable/comment_background"
-    android:elevation="4dp">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screens.CommentActivity">
 
-    <TextView
-        android:id="@+id/userName"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewComments"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBarComment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <EditText
+        android:id="@+id/commentInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSubmitComment"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnSubmitComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="שם משתמש"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginBottom="6dp"/>
-
-    <TextView
-        android:id="@+id/commentText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="התגובה תוצג כאן"
-        android:textSize="14sp"
-        android:textColor="@color/dark_gray"
-        android:lineSpacingExtra="4dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginEnd="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/commentInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/commentInput" />
 
     <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
+        android:id="@+id/ratingBarComment"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="0.5"
-        android:rating="5"
-        android:isIndicator="true"
-        android:theme="@style/RatingBarStyle"/>
-
-</LinearLayout>
+        android:layout_marginBottom="6dp"
+        android:max="5"
+        app:layout_constraintBottom_toTopOf="@+id/commentInput"
+        app:layout_constraintEnd_toEndOf="@+id/commentInput"
+        app:layout_constraintStart_toStartOf="@+id/commentInput" />
+</androidx.constraintlayout.widget.ConstraintLayout>
