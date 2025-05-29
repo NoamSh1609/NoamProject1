@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.noam.noamproject1.R;
+import com.noam.noamproject1.models.Attraction;
 import com.noam.noamproject1.models.Review;
 import com.noam.noamproject1.services.DatabaseService;
 
@@ -52,9 +53,10 @@ public class ReviewsActivity extends AppCompatActivity {
                     String userId = "user123"; // יש להחליף בערך אמיתי של מזהה המשתמש
                     String reviewId = DatabaseService.getInstance().generateNewAttractionReviewId(attractionId);
                     Review review = new Review(reviewId, userId, reviewText, rating, new Date());
-                    DatabaseService.getInstance().saveReview(attractionId, review, new DatabaseService.DatabaseCallback<Void>() {
+
+                    DatabaseService.getInstance().saveReview(attractionId, review, new DatabaseService.DatabaseCallback<Attraction>() {
                         @Override
-                        public void onCompleted(Void aVoid) {
+                        public void onCompleted(Attraction attraction) {
                             Toast.makeText(ReviewsActivity.this, "חוות דעת נשלחה בהצלחה", Toast.LENGTH_SHORT).show();
 
                             // עדכון TextView להצגת חוות הדעת שהתקבלה
@@ -67,6 +69,7 @@ public class ReviewsActivity extends AppCompatActivity {
                             Toast.makeText(ReviewsActivity.this, "הייתה בעיה בשמירת חוות הדעת", Toast.LENGTH_SHORT).show();
                         }
                     });
+
                 }
             }
         });

@@ -9,6 +9,10 @@
     <color name="colorPrimary">#405DE6</color>
     <color name="colorPrimaryDark">#0B48C2</color>
     <color name="colorAccent">#E1306C</color>
+
+    <color name="primary">@color/colorPrimary</color>
+    <color name="primaryDark">@color/colorPrimaryDark</color>
+    <color name="accent">@color/colorAccent</color>
     
     <!-- Instagram Gradient Colors -->
     <color name="instagram_blue">#405DE6</color>

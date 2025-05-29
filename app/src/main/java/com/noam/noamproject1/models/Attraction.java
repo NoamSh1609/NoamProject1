@@ -1,8 +1,11 @@
 package com.noam.noamproject1.models;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Attraction {
+public class Attraction implements Serializable {
     protected String id, name, type, city, detail, area;
     protected int capacity;
     protected int currentVisitors; // מספר המבקרים הנוכחי
@@ -10,13 +13,13 @@ public class Attraction {
     protected double sumRate;
     protected int numRate;
 
-    List<Review> reviews;
+    Map<String, Review> reviews;
 
     String pic;
 
     // קונסטרוקטור שמקבל את כל הפרמטרים
 
-    public Attraction(String id, String name, String type, String city, String detail, String area, int capacity, double rating, double sumRate, int numRate, String pic) {
+    public Attraction(String id, String name, String type, String city, String detail, String area, int capacity, double rating, double sumRate, int numRate, String pic, Map<String, Review> reviews) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -29,12 +32,14 @@ public class Attraction {
         this.sumRate = sumRate;
         this.numRate = numRate;
         this.pic = pic;
+        this.reviews = reviews;
     }
 
 
     // קונסטרוקטור ריק
     public Attraction() {
         this.currentVisitors = 0;
+        this.reviews = new HashMap<>();
     }
 
     // Getter ו- Setter לכל שדה
@@ -132,6 +137,14 @@ public class Attraction {
 
     public void setCurrentVisitors(int currentVisitors) {
         this.currentVisitors = currentVisitors;
+    }
+
+    public Map<String, Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Map<String, Review> reviews) {
+        this.reviews = reviews;
     }
 
     // מתודה להוספת מבקר

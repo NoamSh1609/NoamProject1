@@ -2,10 +2,15 @@ package com.noam.noamproject1.services;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.noam.noamproject1.models.Attraction;
 import com.noam.noamproject1.models.Comment;
 import com.noam.noamproject1.models.Review;
@@ -17,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 
 
 public class DatabaseService {
@@ -94,6 +100,32 @@ public class DatabaseService {
         });
     }
 
+    private <T> void runTransaction(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull Function<T,T> function, @NotNull final DatabaseCallback<T> callback) {
+        readData(path).runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                T t = mutableData.getValue(clazz);
+                if (t == null) {
+                    return Transaction.abort();
+                }
+                t = function.apply(t);
+                // Set value and report transaction success
+                mutableData.setValue(t);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                if (error != null) {
+                    callback.onFailed(error.toException());
+                }
+                T t = currentData.getValue(clazz);
+                callback.onCompleted(t);
+            }
+        });
+    }
+
     private void deleteData(String path, DatabaseCallback<Boolean> databaseCallback) {
         readData(path).removeValue()
                 .addOnCompleteListener(task -> {
@@ -149,8 +181,12 @@ public class DatabaseService {
         deleteData("Attractions/" + id, databaseCallback);
     }
 
-    public void saveReview(String attractionId, Review review, DatabaseCallback<Void> callback) {
-        writeData("Attractions/" + attractionId + "/Reviews/"+ review.getReviewId(), review, callback);
+    public void saveReview(String attractionId, Review review, DatabaseCallback<Attraction> callback) {
+        runTransaction("Attractions/" + attractionId, Attraction.class, attraction -> {
+            attraction.getReviews().put(review.getReviewId(), review);
+            return attraction;
+        }, callback);
+
     }
 
     public String generateNewAttractionReviewId(String attractionId){
@@ -159,7 +195,17 @@ public class DatabaseService {
 
     // קבלת רשימה של תגובות ודירוגים עבור אטרקציה מסוימת
     public void getReviews(String attractionId, DatabaseCallback<List<Review>> callback) {
-        getDataList("Attractions/" + attractionId + "/Reviews", Review.class, callback);
+        getAttraction(attractionId, new DatabaseCallback<Attraction>() {
+            @Override
+            public void onCompleted(Attraction attraction) {
+                callback.onCompleted(new ArrayList<>(attraction.getReviews().values()));
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                callback.onFailed(e);
+            }
+        });
     }
 
     public void getComments(String itemId, DatabaseCallback<List<Comment>> callback) {
@@ -176,5 +222,15 @@ public class DatabaseService {
 
     public void removeComment(String itemId, String commentId, DatabaseCallback<Boolean> callback) {
         deleteData("comments/" + itemId + "/"+ commentId, callback)   ;
+    }
+
+    public void increaseAttractionVisitors(String attractionId, DatabaseCallback<Attraction> callback) {
+        runTransaction("Attractions/" + attractionId, Attraction.class, new Function<Attraction, Attraction>() {
+            @Override
+            public Attraction apply(Attraction attraction) {
+                attraction.setCurrentVisitors(attraction.getCurrentVisitors()+1);
+                return attraction;
+            }
+        }, callback);
     }
 }
