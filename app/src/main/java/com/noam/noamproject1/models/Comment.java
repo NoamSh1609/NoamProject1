@@ -1,38 +1,17 @@
 package com.noam.noamproject1.models;
 
 public class Comment {
-    private String commentId;
     private String userId;
     private String commentText;
     private float rating;
-    private String userName;
-
     public Comment() {
 
     }
 
-    public Comment(String commentId, String userId, String commentText, float rating, String userName) {
-        this.commentId = commentId;
+    public Comment(String userId, String commentText, float rating) {
         this.userId = userId;
         this.commentText = commentText;
         this.rating = rating;
-        this.userName = userName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
     }
 
     public String getUserId() {
@@ -57,5 +36,14 @@ public class Comment {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "userId='" + userId + '\'' +
+                ", commentText='" + commentText + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }

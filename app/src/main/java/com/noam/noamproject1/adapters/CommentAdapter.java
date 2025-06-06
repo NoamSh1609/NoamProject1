@@ -20,25 +20,36 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.models.Comment;
+import com.noam.noamproject1.models.User;
 import com.noam.noamproject1.services.AuthenticationService;
 import com.noam.noamproject1.services.DatabaseService;
 import com.noam.noamproject1.utils.SharedPreferencesUtil;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
+    private List<User> users;
     private List<Comment> commentList;
-    private DatabaseReference commentsRef;
-    private Context context;
-    private String itemId;
 
-    public CommentAdapter(Context context, List<Comment> commentList, String itemId) {
-        this.context = context;
-        this.commentList = commentList;
-        this.itemId = itemId;
-        this.commentsRef = FirebaseDatabase.getInstance().getReference("comments").child(itemId);
+    public CommentAdapter() {
+        this.commentList = new ArrayList<>();
+        this.users = new ArrayList<>();
+    }
+
+    public void setCommentList(List<Comment> comments) {
+        this.commentList.clear();
+        this.commentList.addAll(comments);
+        this.notifyDataSetChanged();
+    }
+
+    public void setUsers(List<User> users) {
+        this.users.clear();
+        this.users.addAll(users);
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -52,32 +63,27 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = commentList.get(position);
 
+        User user = null;
+        for (User u : this.users) {
+            if (Objects.equals(comment.getUserId(), u.getId())) {
+                user = u;
+                break;
+            }
+        }
+        if (user == null) return;
+
         holder.commentText.setText(comment.getCommentText());
         holder.ratingBar.setRating(comment.getRating());
         holder.ratingBar.setIsIndicator(true);
-        holder.userName.setText(comment.getUserName());
+        holder.userName.setText(user.getFname() + " " + user.getLname());
 
-        if (comment.getCommentId() == null) {
-            Log.e("CommentAdapter", "commentId is null at position " + position);
-        } else {
-            Log.d("CommentAdapter", "commentId: " + comment.getCommentId());
-        }
-
-        holder.itemView.setOnLongClickListener(v -> {
-            String currentUserId = AuthenticationService.getInstance().getCurrentUserId();
-            if (comment.getUserId().equals(currentUserId) || SharedPreferencesUtil.isAdmin(context)) {
-                showDeleteConfirmationDialog(comment, position);
-            } else {
-                Toast.makeText(context, "לא ניתן למחוק תגובה של משתמש אחר", Toast.LENGTH_SHORT).show();
-            }
-            return true;
-        });
     }
 
 
 
     @Override
     public int getItemCount() {
+        if (this.users.isEmpty()) return 0;
         return commentList.size();
     }
 
@@ -94,36 +100,4 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         }
     }
 
-    private void showDeleteConfirmationDialog(Comment comment, int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("מחיקת תגובה");
-        builder.setMessage("האם אתה בטוח שברצונך למחוק את התגובה?");
-        builder.setPositiveButton("כן", (dialog, which) -> deleteComment(comment, position));
-        builder.setNegativeButton("לא", (dialog, which) -> dialog.dismiss());
-        builder.show();
-    }
-
-    private void deleteComment(Comment comment, int position) {
-        if (position < 0 || position >= commentList.size()) {
-            Log.e("CommentAdapter", "Invalid index: " + position);
-            return;
-        }
-
-        DatabaseService.getInstance().removeComment(itemId, comment.getCommentId(), new DatabaseService.DatabaseCallback<Boolean>() {
-            @Override
-            public void onCompleted(Boolean object) {
-                Log.d("CommentAdapter", "Comment deleted successfully from Firebase.");
-
-                // מחיקה מהרשימה המקומית ועדכון ה-RecyclerView
-                commentList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, commentList.size());
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-                Log.e("CommentAdapter", "Failed to delete comment", e);
-            }
-        });
-    }
 }

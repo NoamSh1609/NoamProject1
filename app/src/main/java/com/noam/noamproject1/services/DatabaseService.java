@@ -33,6 +33,11 @@ public class DatabaseService {
         getData("Attractions/" + attractionId, Attraction.class, callback);
     }
 
+    public void saveReview(String attractionId, Review review, DatabaseCallback<Attraction> databaseCallback) {
+
+
+    }
+
     public interface DatabaseCallback<T> {
         void onCompleted(T object);
 
@@ -119,6 +124,7 @@ public class DatabaseService {
             public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
                 if (error != null) {
                     callback.onFailed(error.toException());
+                    return;
                 }
                 T t = currentData.getValue(clazz);
                 callback.onCompleted(t);
@@ -181,24 +187,15 @@ public class DatabaseService {
         deleteData("Attractions/" + id, databaseCallback);
     }
 
-    public void saveReview(String attractionId, Review review, DatabaseCallback<Attraction> callback) {
-        runTransaction("Attractions/" + attractionId, Attraction.class, attraction -> {
-            attraction.getReviews().put(review.getReviewId(), review);
-            return attraction;
-        }, callback);
-
-    }
-
     public String generateNewAttractionReviewId(String attractionId){
         return this.generateNewId("Attractions/" + attractionId + "/Reviews");
     }
 
-    // קבלת רשימה של תגובות ודירוגים עבור אטרקציה מסוימת
-    public void getReviews(String attractionId, DatabaseCallback<List<Review>> callback) {
+    public void getComments(String attractionId, DatabaseCallback<List<Comment>> callback) {
         getAttraction(attractionId, new DatabaseCallback<Attraction>() {
             @Override
             public void onCompleted(Attraction attraction) {
-                callback.onCompleted(new ArrayList<>(attraction.getReviews().values()));
+                callback.onCompleted(attraction.getComments());
             }
 
             @Override
@@ -208,20 +205,16 @@ public class DatabaseService {
         });
     }
 
-    public void getComments(String itemId, DatabaseCallback<List<Comment>> callback) {
-        getDataList("comments/" + itemId, Comment.class, callback);
-    }
-
-    public void writeNewComment(String itemId, Comment comment, DatabaseCallback<Void> callback) {
-        writeData("comments/" + itemId + "/" + comment.getCommentId(), comment, callback);
-    }
-
-    public String generateNewCommentId(String itemId) {
-        return generateNewId("comments/" + itemId);
-    }
-
-    public void removeComment(String itemId, String commentId, DatabaseCallback<Boolean> callback) {
-        deleteData("comments/" + itemId + "/"+ commentId, callback)   ;
+    public void writeNewComment(String attractionId, Comment comment, DatabaseCallback<Attraction> callback) {
+        runTransaction("Attractions/" + attractionId, Attraction.class, new Function<Attraction, Attraction>() {
+            @Override
+            public Attraction apply(Attraction attraction) {
+                List<Comment> comments = attraction.getComments();
+                comments.add(comment);
+                attraction.setComments(comments);
+                return attraction;
+            }
+        }, callback);
     }
 
     public void increaseAttractionVisitors(String attractionId, DatabaseCallback<Attraction> callback) {

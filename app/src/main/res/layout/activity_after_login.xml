@@ -118,6 +118,17 @@
                         android:textSize="18sp"
                         app:cornerRadius="16dp"
                         app:elevation="4dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnEditUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#E53935"
+                        android:text="ה"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        app:cornerRadius="16dp"
+                        app:elevation="4dp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

@@ -1,6 +1,9 @@
 package com.noam.noamproject1.models;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,18 +12,20 @@ public class Attraction implements Serializable {
     protected String id, name, type, city, detail, area;
     protected int capacity;
     protected int currentVisitors; // מספר המבקרים הנוכחי
-    protected double rating;
-    protected double sumRate;
-    protected int numRate;
     protected String temp; // Temperature field
 
-    Map<String, Review> reviews;
+    List<Comment> comments;
 
     String pic;
 
-    // קונסטרוקטור שמקבל את כל הפרמטרים
 
-    public Attraction(String id, String name, String type, String city, String detail, String area, int capacity, double rating, double sumRate, int numRate, String pic, Map<String, Review> reviews) {
+    public Attraction() {
+        comments = new ArrayList<>();
+    }
+
+    public Attraction(String id, String name, String type, String city, String detail,
+                      String area, int capacity, int currentVisitors,
+                      String temp, List<Comment> comments, String pic) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -28,24 +33,12 @@ public class Attraction implements Serializable {
         this.detail = detail;
         this.area = area;
         this.capacity = capacity;
-        this.currentVisitors = 0; // מאתחל את מספר המבקרים ל-0
-        this.rating = rating;
-        this.sumRate = sumRate;
-        this.numRate = numRate;
+        this.currentVisitors = currentVisitors;
+        this.temp = temp;
+        this.comments = comments;
         this.pic = pic;
-        this.reviews = reviews;
-        this.temp = "טמפרטורה: --°C"; // Default temperature value
     }
 
-
-    // קונסטרוקטור ריק
-    public Attraction() {
-        this.currentVisitors = 0;
-        this.reviews = new HashMap<>();
-        this.temp = "טמפרטורה: --°C"; // Default temperature value
-    }
-
-    // Getter ו- Setter לכל שדה
     public String getId() {
         return id;
     }
@@ -102,28 +95,31 @@ public class Attraction implements Serializable {
         this.capacity = capacity;
     }
 
-    public double getRating() {
-        return rating;
+    public int getCurrentVisitors() {
+        return currentVisitors;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setCurrentVisitors(int currentVisitors) {
+        this.currentVisitors = currentVisitors;
     }
 
-    public double getSumRate() {
-        return sumRate;
+    public String getTemp() {
+        return temp;
     }
 
-    public void setSumRate(double sumRate) {
-        this.sumRate = sumRate;
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 
-    public int getNumRate() {
-        return numRate;
+    public List<Comment> getComments() {
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+        return comments;
     }
 
-    public void setNumRate(int numRate) {
-        this.numRate = numRate;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public String getPic() {
@@ -134,60 +130,7 @@ public class Attraction implements Serializable {
         this.pic = pic;
     }
 
-    public int getCurrentVisitors() {
-        return currentVisitors;
-    }
-
-    public void setCurrentVisitors(int currentVisitors) {
-        this.currentVisitors = currentVisitors;
-    }
-
-    public Map<String, Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(Map<String, Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    // מתודה להוספת מבקר
-    public boolean addVisitor() {
-        if (currentVisitors < capacity) {
-            currentVisitors++;
-            return true;
-        }
-        return false;
-    }
-
-    // מתודה להורדת מבקר
-    public boolean removeVisitor() {
-        if (currentVisitors > 0) {
-            currentVisitors--;
-            return true;
-        }
-        return false;
-    }
-
-    // מתודה לבדיקה האם יש מקום לעוד מבקרים
-    public boolean hasAvailableSpace() {
-        return currentVisitors < capacity;
-    }
-
-    // מתודה לקבלת אחוז התפוסה
-    public double getOccupancyPercentage() {
-        if (capacity == 0) return 0;
-        return (currentVisitors * 100.0) / capacity;
-    }
-
-    // Add getter and setter for temperature
-    public String getTemp() {
-        return temp;
-    }
-
-    public void setTemp(String temp) {
-        this.temp = temp;
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return "Attraction{" +
@@ -199,9 +142,22 @@ public class Attraction implements Serializable {
                 ", area='" + area + '\'' +
                 ", capacity=" + capacity +
                 ", currentVisitors=" + currentVisitors +
-                ", rating=" + rating +
-                ", sumRate=" + sumRate +
-                ", numRate=" + numRate +
+                ", temp='" + temp + '\'' +
+                ", comments=" + comments +
+//                ", pic='" + pic + '\'' +
                 '}';
     }
+
+
+    public double getAvgRating() {
+        if (this.comments.isEmpty()) return 0;
+
+        int count = this.comments.size();
+        double total = 0;
+        for (Comment comment : this.comments) {
+            total += comment.getRating();
+        }
+        return total / count;
+    }
+
 }

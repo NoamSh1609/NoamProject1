@@ -28,6 +28,7 @@ import com.noam.noamproject1.services.AuthenticationService;
 import com.noam.noamproject1.services.DatabaseService;
 import com.noam.noamproject1.utils.ImageUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AddAttraction extends AppCompatActivity implements View.OnClickListener {
@@ -124,7 +125,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         } else {
             String id = databaseService.generateNewAttractionId();
             Attraction attr = new Attraction(id, attractionName, attractionType, attractionCity, attractionDetails,
-                    attractionArea, 0, 0, 0, 0, imageBase64, new HashMap<>());
+                    attractionArea, 0, 0, "", new ArrayList<>(), imageBase64);
 
             databaseService.createNewAttraction(attr, new DatabaseService.DatabaseCallback<Void>() {
                 @Override

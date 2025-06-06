@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.models.User;
+import com.noam.noamproject1.services.AuthenticationService;
 import com.noam.noamproject1.services.DatabaseService;
 
 public class EditUserActivity extends AppCompatActivity {
@@ -36,6 +37,10 @@ public class EditUserActivity extends AppCompatActivity {
 
         // קבלת המידע של המשתמש הנוכחי (המידע יעבור כ-Intent)
         userId = getIntent().getStringExtra("userId");
+        if (userId == null) {
+            userId = AuthenticationService.getInstance().getCurrentUserId();
+        }
+
         databaseService.getUser(userId, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {

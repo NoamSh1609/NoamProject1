@@ -21,7 +21,7 @@ import com.noam.noamproject1.utils.SharedPreferencesUtil;
 
 public class After_Login extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnAddAttraction, btnAttractionActivity, My_FavAt, btnLogout;
+    Button btnAddAttraction, btnAttractionActivity, My_FavAt, btnLogout,btnEditUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
