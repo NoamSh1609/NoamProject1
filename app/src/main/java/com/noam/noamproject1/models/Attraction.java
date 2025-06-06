@@ -12,6 +12,7 @@ public class Attraction implements Serializable {
     protected double rating;
     protected double sumRate;
     protected int numRate;
+    protected String temp; // Temperature field
 
     Map<String, Review> reviews;
 
@@ -33,6 +34,7 @@ public class Attraction implements Serializable {
         this.numRate = numRate;
         this.pic = pic;
         this.reviews = reviews;
+        this.temp = "טמפרטורה: --°C"; // Default temperature value
     }
 
 
@@ -40,6 +42,7 @@ public class Attraction implements Serializable {
     public Attraction() {
         this.currentVisitors = 0;
         this.reviews = new HashMap<>();
+        this.temp = "טמפרטורה: --°C"; // Default temperature value
     }
 
     // Getter ו- Setter לכל שדה
@@ -174,6 +177,15 @@ public class Attraction implements Serializable {
     public double getOccupancyPercentage() {
         if (capacity == 0) return 0;
         return (currentVisitors * 100.0) / capacity;
+    }
+
+    // Add getter and setter for temperature
+    public String getTemp() {
+        return temp;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 
     @Override

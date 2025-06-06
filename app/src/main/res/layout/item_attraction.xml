@@ -43,6 +43,18 @@
         app:layout_constraintStart_toStartOf="@id/tvAttractionName"
         app:layout_constraintTop_toBottomOf="@id/tvAttractionName" />
 
+    <!-- טמפרטורה -->
+    <TextView
+        android:id="@+id/tvAttractionTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="טמפרטורה: --°C"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tvAttractionCity"
+        app:layout_constraintTop_toBottomOf="@id/tvAttractionCity" />
+
     <!-- כפתור מועדפים בצד ימין למטה -->
     <ImageButton
         android:id="@+id/btnAttractionFavorite"

@@ -9,6 +9,11 @@ public class Review {
     private float rating;
     private Date reviewDate;
 
+    // Empty constructor required for Firebase
+    public Review() {
+        // Required empty constructor for Firebase
+    }
+
     // Constructor
     public Review(String reviewId, String userId, String reviewText, float rating, Date reviewDate) {
         this.reviewId = reviewId;

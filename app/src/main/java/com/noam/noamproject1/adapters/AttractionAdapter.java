@@ -51,6 +51,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
 
         holder.tvAttractionName.setText(attraction.getName());
         holder.tvAttractionCity.setText(attraction.getCity());
+        holder.tvAttractionTemp.setText(attraction.getTemp());
         holder.pic.setImageBitmap(ImageUtil.convertFrom64base(attraction.getPic()));
 
         // Set favorite button state
@@ -78,7 +79,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
     }
 
     public static class AttractionViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAttractionName, tvAttractionCity;
+        TextView tvAttractionName, tvAttractionCity, tvAttractionTemp;
         ImageView pic;
         ImageButton btnFavorite;
 
@@ -86,8 +87,9 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
             super(itemView);
             tvAttractionName = itemView.findViewById(R.id.tvAttractionName);
             tvAttractionCity = itemView.findViewById(R.id.tvAttractionCity);
+            tvAttractionTemp = itemView.findViewById(R.id.tvAttractionTemp);
             pic = itemView.findViewById(R.id.pic);
-            btnFavorite = itemView.findViewById(R.id.btnAttractionFavorite); // Ensure this exists in XML
+            btnFavorite = itemView.findViewById(R.id.btnAttractionFavorite);
         }
     }
 }

@@ -124,7 +124,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         } else {
             String id = databaseService.generateNewAttractionId();
             Attraction attr = new Attraction(id, attractionName, attractionType, attractionCity, attractionDetails,
-                    attractionArea, capsity, 0, 0, 0, imageBase64, new HashMap<>());
+                    attractionArea, 0, 0, 0, 0, imageBase64, new HashMap<>());
 
             databaseService.createNewAttraction(attr, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
