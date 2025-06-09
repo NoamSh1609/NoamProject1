@@ -10,13 +10,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.models.Attraction;
 import com.noam.noamproject1.services.DatabaseService;
 import com.noam.noamproject1.utils.ImageUtil;
 
-public class ShowAttraction extends AppCompatActivity {
+public class AttractionActivity extends AppCompatActivity {
 
     private TextView tvAttractionName, tvAttractionDetail, tvAttractionCapacity;
     private ImageView pic;
@@ -30,6 +33,12 @@ public class ShowAttraction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_attraction);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         databaseService = DatabaseService.getInstance();
 
@@ -49,7 +58,7 @@ public class ShowAttraction extends AppCompatActivity {
 
         // מעבר לעמוד חוות דעת בעת לחיצה על כפתור התגובות
         commentButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ShowAttraction.this, ReviewsActivity.class);
+            Intent intent = new Intent(AttractionActivity.this, ReviewsActivity.class);
             intent.putExtra("ATTRACTION_ID", attractionId);
             startActivity(intent);
         });
@@ -85,7 +94,7 @@ public class ShowAttraction extends AppCompatActivity {
 
             @Override
             public void onFailed(Exception e) {
-                Toast.makeText(ShowAttraction.this, "Failed to fetch attraction details", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AttractionActivity.this, "Failed to fetch attraction details", Toast.LENGTH_SHORT).show();
             }
         });
     }

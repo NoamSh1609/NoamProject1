@@ -20,7 +20,7 @@
         android:id="@+id/reviewEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="מה אתה חושב על האתר?"
+        android:hint="מה דעתך לגביי האטרקציה/אתר?"
         android:inputType="textMultiLine"
         android:lines="5"
         android:gravity="top"

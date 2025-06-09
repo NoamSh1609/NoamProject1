@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -42,8 +42,8 @@
                     android:id="@+id/pic"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="תמונת האטרקציה"/>
+                    android:contentDescription="תמונת האטרקציה"
+                    android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
 
@@ -51,18 +51,18 @@
                 android:id="@+id/tvAttractionName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
                 android:textColor="@android:color/black"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvAttractionDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_marginBottom="16dp"
                 android:textColor="@android:color/darker_gray"
-                android:layout_marginBottom="16dp"/>
+                android:textSize="16sp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -80,17 +80,17 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@android:drawable/ic_menu_myplaces"
                         android:layout_gravity="center_vertical"
-                        android:contentDescription="סמל קיבולת"/>
+                        android:contentDescription="סמל קיבולת"
+                        android:src="@android:drawable/ic_menu_myplaces" />
 
                     <TextView
                         android:id="@+id/tvAttractionCapacity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginStart="8dp"
-                        android:layout_gravity="center_vertical"/>
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -99,10 +99,10 @@
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="12dp"
                 android:text="צפה בחוות דעת"
                 android:textSize="16sp"
-                android:padding="12dp"
-                app:cornerRadius="8dp"/>
+                app:cornerRadius="8dp" />
 
         </LinearLayout>
 

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,6 +21,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.models.Attraction;
 import com.noam.noamproject1.services.AuthenticationService;
@@ -33,8 +34,9 @@ import java.util.HashMap;
 
 public class AddAttraction extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton selectImageFromGallery;
-    EditText etAttractionCapicity, etAttractionDetails, etAttractionName;
+    MaterialButton selectImageFromGallery;
+    TextInputLayout etAttractionCapicity;
+    EditText etAttractionDetails, etAttractionName;
     Button btnAdd;
     Spinner spAttractionCity, spAttractionType, spAttractionArea,spCapsity;
 
@@ -54,11 +56,11 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_add_attraction);
 
         btnAdd = findViewById(R.id.btnAdd);
-        selectImageFromGallery = findViewById(R.id.select_image_button);
+        selectImageFromGallery = findViewById(R.id.btnSelectImage);
         btnAdd.setOnClickListener(this);
         selectImageFromGallery.setOnClickListener(this);
 
-        etAttractionCapicity = findViewById(R.id.etAttractionCapicity);
+        etAttractionCapicity = findViewById(R.id.tilAttractionCapacity);
         etAttractionDetails = findViewById(R.id.etAttractionDetails);
         etAttractionName = findViewById(R.id.etAttractionName);
         spAttractionCity = findViewById(R.id.spAttractionCity);
@@ -68,7 +70,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
 
         ImageUtil.requestPermission(this);
 
-        String[] attractionCityArray = getResources().getStringArray(R.array.spAttractionCity);
+        String[] attractionCityArray = getResources().getStringArray(R.array.city_names);
         String[] attractionTypeArray = getResources().getStringArray(R.array.spAttractionType);
         String[] attractionAreaArray = getResources().getStringArray(R.array.spAttractionArea);
 
@@ -91,7 +93,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
                         Intent data = result.getData();
                         if (data != null) {
                             selectedImageUri = data.getData();
-                            selectImageFromGallery.setImageURI(selectedImageUri);
+                            ivPreviewImage.setImageURI(selectedImageUri);
                         }
                     }
                 });
@@ -113,7 +115,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
 
         String attractionName = etAttractionName.getText().toString().trim();
         String attractionDetails = etAttractionDetails.getText().toString().trim();
-        String attractionCapacityString = etAttractionCapicity.getText().toString().trim();
+        String attractionCapacityString = etAttractionCapicity.getEditText().getText().toString().trim();
         String attractionCity = spAttractionCity.getSelectedItem().toString();
         String attractionType = spAttractionType.getSelectedItem().toString();
         String attractionArea = spAttractionArea.getSelectedItem().toString();
@@ -124,8 +126,9 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
         } else {
             String id = databaseService.generateNewAttractionId();
+            int capacity = Integer.parseInt(attractionCapacityString);
             Attraction attr = new Attraction(id, attractionName, attractionType, attractionCity, attractionDetails,
-                    attractionArea, 0, 0, "", new ArrayList<>(), imageBase64);
+                    attractionArea, capacity , 0, "", new ArrayList<>(), imageBase64);
 
             databaseService.createNewAttraction(attr, new DatabaseService.DatabaseCallback<Void>() {
                 @Override

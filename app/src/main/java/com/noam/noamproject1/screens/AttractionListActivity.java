@@ -12,13 +12,16 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.adapters.AttractionAdapter;
 import com.noam.noamproject1.models.Attraction;
-import com.noam.noamproject1.models.TranslateHelper;
+import com.noam.noamproject1.services.CityTranslator;
 import com.noam.noamproject1.services.DatabaseService;
 import com.noam.noamproject1.services.WeatherApiService;
 
@@ -30,8 +33,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
-public class ShowAttractionsActivity extends AppCompatActivity {
+public class AttractionListActivity extends AppCompatActivity {
 
     private RecyclerView rvAttractions;
     private AttractionAdapter attractionAdapter;
@@ -44,16 +48,22 @@ public class ShowAttractionsActivity extends AppCompatActivity {
     private DatabaseService databaseService;
     private WeatherApiService weatherApiService;
     private SharedPreferences sharedPreferences;
-    private ExecutorService executorService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_attractions);
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
         databaseService = DatabaseService.getInstance();
         weatherApiService = new WeatherApiService();
-        executorService = Executors.newFixedThreadPool(4);
+
         sharedPreferences = getSharedPreferences("Favorites", MODE_PRIVATE);
         loadFavorites();
 
@@ -66,7 +76,7 @@ public class ShowAttractionsActivity extends AppCompatActivity {
         attractionAdapter = new AttractionAdapter(attractionList, new AttractionAdapter.AttractionListener() {
             @Override
             public void onClick(Attraction attraction) {
-                Intent intent = new Intent(getApplicationContext(), ShowAttraction.class);
+                Intent intent = new Intent(getApplicationContext(), AttractionActivity.class);
                 intent.putExtra("attraction_id", attraction.getId());
                 startActivity(intent);
             }
@@ -101,7 +111,7 @@ public class ShowAttractionsActivity extends AppCompatActivity {
         btnGoBack.setOnClickListener(v -> finish());
 
         btnViewFavorites.setOnClickListener(v -> {
-            Intent intent = new Intent(ShowAttractionsActivity.this, MyFavoritesActivity.class);
+            Intent intent = new Intent(AttractionListActivity.this, MyFavoritesActivity.class);
             startActivity(intent);
         });
     }
@@ -130,34 +140,11 @@ public class ShowAttractionsActivity extends AppCompatActivity {
     }
 
     private void fetchWeatherForAttraction(Attraction attraction) {
-        executorService.execute(() -> {
-            try {
-                String cityName = attraction.getCity();
-                Log.d("ShowAttractionsActivity", "Original city name: " + cityName);
-                
-                // Translate city name to English
-                String englishCityName = TranslateHelper.translateToEnglish(cityName);
-                Log.d("ShowAttractionsActivity", "Translated city name: " + englishCityName);
-                
-                if (englishCityName.equals(cityName)) {
-                    Log.w("ShowAttractionsActivity", "Translation might have failed - original and translated names are identical");
-                }
-
-                String weatherData = weatherApiService.getCurrentWeather(englishCityName);
-                Log.d("ShowAttractionsActivity", "Weather data received: " + weatherData);
-                
-                JSONObject json = new JSONObject(weatherData);
-                JSONObject current = json.getJSONObject("current");
-                double tempC = current.getDouble("temp_c");
-                
+        attraction.getWeatherTemp(this, new Consumer<Double>() {
+            @Override
+            public void accept(Double temp) {
                 runOnUiThread(() -> {
-                    attraction.setTemp(String.format("טמפרטורה: %.1f°C", tempC));
-                    attractionAdapter.notifyDataSetChanged();
-                });
-            } catch (Exception e) {
-                Log.e("ShowAttractionsActivity", "Error fetching weather for " + attraction.getCity(), e);
-                runOnUiThread(() -> {
-                    attraction.setTemp("טמפרטורה: --°C");
+                    attraction.setTemp(String.format("טמפרטורה: %.1f°C", temp == null ? 25 : temp));
                     attractionAdapter.notifyDataSetChanged();
                 });
             }
@@ -205,6 +192,5 @@ public class ShowAttractionsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        executorService.shutdown();
     }
 }

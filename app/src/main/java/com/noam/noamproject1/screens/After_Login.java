@@ -2,7 +2,6 @@ package com.noam.noamproject1.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,23 +53,29 @@ public class After_Login extends AppCompatActivity implements View.OnClickListen
         btnAttractionActivity = findViewById(R.id.btnAttractionActivity);
         btnAddAttraction = findViewById(R.id.btnAddAttraction);
         My_FavAt = findViewById(R.id.My_FavAt);
+        btnEditUser = findViewById(R.id.btnEditUser);
+
 
         btnAddAttraction.setOnClickListener(this);
         btnAttractionActivity.setOnClickListener(this);
         My_FavAt.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+        btnEditUser.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if (view == btnAttractionActivity) {
-            startActivity(new Intent(this, ShowAttractionsActivity.class));
+            startActivity(new Intent(this, AttractionListActivity.class));
         } else if (view == btnAddAttraction) {
             startActivity(new Intent(this, AddAttraction.class));
         } else if (view == My_FavAt) {
             startActivity(new Intent(this, MyFavoritesActivity.class));
         } else if (view == btnLogout) {
             handleLogout();
+        } else if (view==btnEditUser) {
+            startActivity(new Intent(this, EditUserActivity.class));
+
         }
     }
 

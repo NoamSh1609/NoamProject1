@@ -50,6 +50,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
         if (attraction == null) return;
 
         holder.tvAttractionName.setText(attraction.getName());
+        holder.tvCapsity.setText("כמות אנשים:"+attraction.getCapacity());
         holder.tvAttractionCity.setText(attraction.getCity());
         holder.tvAttractionTemp.setText(attraction.getTemp());
         holder.pic.setImageBitmap(ImageUtil.convertFrom64base(attraction.getPic()));
@@ -79,7 +80,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
     }
 
     public static class AttractionViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAttractionName, tvAttractionCity, tvAttractionTemp;
+        TextView tvAttractionName, tvAttractionCity, tvAttractionTemp,tvCapsity;
         ImageView pic;
         ImageButton btnFavorite;
 
@@ -90,6 +91,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
             tvAttractionTemp = itemView.findViewById(R.id.tvAttractionTemp);
             pic = itemView.findViewById(R.id.pic);
             btnFavorite = itemView.findViewById(R.id.btnAttractionFavorite);
+            tvCapsity=itemView.findViewById(R.id.tvCapsity);
         }
     }
 }

@@ -29,14 +29,6 @@ public class DatabaseService {
 
     private static final String TAG = "DatabaseService";
 
-    public void getAttractionDetails(String attractionId, DatabaseCallback<Attraction> callback) {
-        getData("Attractions/" + attractionId, Attraction.class, callback);
-    }
-
-    public void saveReview(String attractionId, Review review, DatabaseCallback<Attraction> databaseCallback) {
-
-
-    }
 
     public interface DatabaseCallback<T> {
         void onCompleted(T object);
@@ -225,5 +217,9 @@ public class DatabaseService {
                 return attraction;
             }
         }, callback);
+    }
+
+    public void getAttractionDetails(String attractionId, DatabaseCallback<Attraction> callback) {
+        getData("Attractions/" + attractionId, Attraction.class, callback);
     }
 }

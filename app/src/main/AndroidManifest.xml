@@ -61,10 +61,10 @@
             android:name=".screens.AddAttraction"
             android:exported="false" />
         <activity
-            android:name=".screens.ShowAttractionsActivity"
+            android:name=".screens.AttractionListActivity"
             android:exported="false" />
         <activity
-            android:name=".screens.ShowAttraction"
+            android:name=".screens.AttractionActivity"
             android:exported="false" />
         <activity
             android:name=".screens.WebsiteReview"

@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +39,12 @@ public class MyFavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_favorites);
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
         databaseService = DatabaseService.getInstance();
         sharedPreferences = getSharedPreferences("Favorites", MODE_PRIVATE);
         loadFavorites();
@@ -47,7 +56,7 @@ public class MyFavoritesActivity extends AppCompatActivity {
         attractionAdapter = new AttractionAdapter(favoriteAttractionsList, new AttractionAdapter.AttractionListener() {
             @Override
             public void onClick(Attraction attraction) {
-                Intent intent = new Intent(MyFavoritesActivity.this, ShowAttraction.class);
+                Intent intent = new Intent(MyFavoritesActivity.this, AttractionActivity.class);
                 intent.putExtra("attraction_id", attraction.getId());
                 startActivity(intent);
             }

@@ -1,12 +1,24 @@
 package com.noam.noamproject1.models;
 
+import android.content.Context;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+
+import com.noam.noamproject1.screens.AttractionListActivity;
+import com.noam.noamproject1.services.CityTranslator;
+import com.noam.noamproject1.services.WeatherApiService;
+
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 public class Attraction implements Serializable {
     protected String id, name, type, city, detail, area;
@@ -158,6 +170,39 @@ public class Attraction implements Serializable {
             total += comment.getRating();
         }
         return total / count;
+    }
+
+
+    private static WeatherApiService weatherApiService = new WeatherApiService();
+    private static ExecutorService executorService = Executors.newFixedThreadPool(4);
+    public void getWeatherTemp(Context context, Consumer<Double> runnable) {
+        executorService.execute(() -> {
+            try {
+                String cityName = this.getCity();
+                Log.d("ShowAttractionsActivity", "Original city name: " + cityName);
+
+                // Translate city name to English
+                String englishCityName = CityTranslator.translateToEnglish(context, cityName);
+                Log.d("ShowAttractionsActivity", "Translated city name: " + englishCityName);
+
+                if (englishCityName.equals(cityName)) {
+                    Log.w("ShowAttractionsActivity", "Translation might have failed - original and translated names are identical");
+                }
+
+                String weatherData = weatherApiService.getCurrentWeather(englishCityName);
+                Log.d("ShowAttractionsActivity", "Weather data received: " + weatherData);
+
+                JSONObject json = new JSONObject(weatherData);
+                JSONObject current = json.getJSONObject("current");
+                Log.d("ShowAttractionsActivity", "Weather data received current: " + current);
+                double tempC = current.getDouble("temp_c");
+
+                runnable.accept(tempC);
+            } catch (Exception e) {
+                Log.e("ShowAttractionsActivity", "Error fetching weather for " + this.getCity(), e);
+                runnable.accept(null);
+            }
+        });
     }
 
 }

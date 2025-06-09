@@ -12,6 +12,8 @@
 
     <color name="primary">@color/colorPrimary</color>
     <color name="primaryDark">@color/colorPrimaryDark</color>
+    <color name="primary_dark">@color/primaryDark</color>
+    <color name="primary_light">#BBDEFB</color>
     <color name="accent">@color/colorAccent</color>
     
     <!-- Instagram Gradient Colors -->
@@ -34,4 +36,12 @@
     <color name="error">#ED4956</color>
     <color name="success">#78DE45</color>
     <color name="background">#F5F5F5</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="surface">#FFFFFF</color>
+
+    <color name="gray_light">#E0E0E0</color>
+    <color name="gray_medium">#9E9E9E</color>
+    <color name="gray_dark">#424242</color>
+    <color name="light_gray">#F5F5F5</color>
+
 </resources>

@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.noam.noamproject1.R;
 import com.noam.noamproject1.adapters.AttractionAdapter;
 import com.noam.noamproject1.models.Attraction;
-import com.noam.noamproject1.screens.ShowAttraction;
+import com.noam.noamproject1.screens.AttractionActivity;
 import com.noam.noamproject1.services.DatabaseService;
 
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class AdminShowAttraction extends AppCompatActivity {
         attractionAdapter = new AttractionAdapter(attractionList, new AttractionAdapter.AttractionListener() {
             @Override
             public void onClick(Attraction attraction) {
-                Intent intent = new Intent(getApplicationContext(), ShowAttraction.class);
+                Intent intent = new Intent(getApplicationContext(), AttractionActivity.class);
                 intent.putExtra("attraction_id", attraction.getId());
                 startActivity(intent);
             }
