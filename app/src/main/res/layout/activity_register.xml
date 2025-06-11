@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:text="הרשמה לטיול"
+        android:text="הרשמה לאפליקציה"
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="#2C6B4F" /> <!-- צבע טבעי, ירוק כהה -->

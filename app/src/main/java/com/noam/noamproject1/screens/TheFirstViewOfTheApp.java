@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TheFirstViewOfTheApp extends AppCompatActivity implements View.OnClickListener {
-    private Button btnform, btnLoginMain, btnWebsiteR;
+    private Button btnform, btnLoginMain, btnWebsiteR,btnAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class TheFirstViewOfTheApp extends AppCompatActivity implements View.OnCl
 
     private void initViews() {
         btnform = findViewById(R.id.btnForm);
+        btnAbout= findViewById(R.id.btnAbout);
         btnLoginMain = findViewById(R.id.btnLoginMain);
         btnWebsiteR = findViewById(R.id.btnWebsiteReview);
 
@@ -55,6 +56,7 @@ public class TheFirstViewOfTheApp extends AppCompatActivity implements View.OnCl
         btnform.setOnClickListener(this);
         btnLoginMain.setOnClickListener(this);
         btnWebsiteR.setOnClickListener(this);
+        btnAbout.setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +67,9 @@ public class TheFirstViewOfTheApp extends AppCompatActivity implements View.OnCl
             startActivity(new Intent(this, Login.class));
         } else if (view == btnWebsiteR) {
             startActivity(new Intent(this, WebsiteReview.class));
+        }
+        else if (view == btnAbout) {
+            startActivity(new Intent(this, wondermate.class));
         }
     }
 }

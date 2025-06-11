@@ -1,5 +1,6 @@
 package com.noam.noamproject1.screens;
 
+// ייבוא דברים שהאפליקציה צריכה להשתמש בהם
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -30,31 +31,34 @@ import com.noam.noamproject1.services.DatabaseService;
 import com.noam.noamproject1.utils.ImageUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class AddAttraction extends AppCompatActivity implements View.OnClickListener {
 
+    // הגדרות של כפתורים ושדות למסך הוספת אטרקציה
     MaterialButton selectImageFromGallery;
     TextInputLayout etAttractionCapicity;
     EditText etAttractionDetails, etAttractionName;
     Button btnAdd;
-    Spinner spAttractionCity, spAttractionType, spAttractionArea,spCapsity;
+    Spinner spAttractionCity, spAttractionType, spAttractionArea, spCapsity;
 
+    // שירותים שיעזרו לנו לשמור נתונים ולבדוק משתמש
     DatabaseService databaseService = DatabaseService.getInstance();
     AuthenticationService authenticationService = AuthenticationService.getInstance();
 
+    // משתנים שקשורים לבחירת תמונה
     private ActivityResultLauncher<Intent> selectImageLauncher;
     private ActivityResultLauncher<Intent> captureImageLauncher;
     private Uri selectedImageUri;
     ImageView ivPreviewImage;
 
-    int SELECT_PICTURE = 200;
+    int SELECT_PICTURE = 200; // קוד לזיהוי הפעולה של בחירת תמונה
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_attraction);
+        setContentView(R.layout.activity_add_attraction); // מציב את העיצוב של המסך
 
+        // מחבר את הכפתורים והשדות מהמסך לקוד שלנו
         btnAdd = findViewById(R.id.btnAdd);
         selectImageFromGallery = findViewById(R.id.btnSelectImage);
         btnAdd.setOnClickListener(this);
@@ -68,12 +72,15 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         spAttractionArea = findViewById(R.id.spAttractionArea);
         ivPreviewImage = findViewById(R.id.ivAddAttraction);
 
+        // מבקש הרשאה לתמונות
         ImageUtil.requestPermission(this);
 
+        // מביא את רשימות הערכים מהמשאבים
         String[] attractionCityArray = getResources().getStringArray(R.array.city_names);
         String[] attractionTypeArray = getResources().getStringArray(R.array.spAttractionType);
         String[] attractionAreaArray = getResources().getStringArray(R.array.spAttractionArea);
 
+        // מחבר את הרשימות לתפריטים במסך
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, attractionCityArray);
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spAttractionCity.setAdapter(cityAdapter);
@@ -86,6 +93,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spAttractionArea.setAdapter(areaAdapter);
 
+        // מקבל את התמונה שהמשתמש בחר בגלריה
         selectImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -99,20 +107,23 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
                 });
     }
 
+    // מה קורה כשמשתמש לוחץ על כפתור
     @Override
     public void onClick(View v) {
         if (v == btnAdd) {
-            saveToDB();
+            saveToDB(); // שומר למסד הנתונים
             return;
         }
         if (v == selectImageFromGallery) {
-            selectImageFromGallery();
+            selectImageFromGallery(); // בוחר תמונה מהגלריה
             return;
         }
     }
 
+    // שומר את כל המידע למסד הנתונים
     private void saveToDB() {
 
+        // מקבל את הערכים מהשדות
         String attractionName = etAttractionName.getText().toString().trim();
         String attractionDetails = etAttractionDetails.getText().toString().trim();
         String attractionCapacityString = etAttractionCapicity.getEditText().getText().toString().trim();
@@ -120,11 +131,14 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         String attractionType = spAttractionType.getSelectedItem().toString();
         String attractionArea = spAttractionArea.getSelectedItem().toString();
 
+        // ממיר את התמונה לטקסט מיוחד שניתן לשמור
         String imageBase64 = ImageUtil.convertTo64Base(ivPreviewImage);
 
+        // בודק אם כל השדות מלאים
         if (attractionName.isEmpty() || attractionDetails.isEmpty() || attractionCapacityString.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
         } else {
+            // יוצר מזהה חדש ושומר את האטרקציה למסד נתונים
             String id = databaseService.generateNewAttractionId();
             int capacity = Integer.parseInt(attractionCapacityString);
             Attraction attr = new Attraction(id, attractionName, attractionType, attractionCity, attractionDetails,
@@ -134,8 +148,8 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onCompleted(Void object) {
                     Toast.makeText(AddAttraction.this, "הצליח", Toast.LENGTH_SHORT).show();
-                    sendNewHikeNotification(); // שליחת ההתראה
-                    finish();
+                    sendNewHikeNotification(); // שולח התראה
+                    finish(); // סוגר את המסך
                 }
 
                 @Override
@@ -147,15 +161,18 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    // פותח את בחירת התמונה בגלריה
     private void selectImageFromGallery() {
         imageChooser();
     }
 
+    // (לא בשימוש כרגע) מצלמה
     private void captureImageFromCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         captureImageLauncher.launch(takePictureIntent);
     }
 
+    // פותח חלון לבחירת תמונה
     void imageChooser() {
         Intent i = new Intent();
         i.setType("image/*");
@@ -163,6 +180,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
+    // מקבל את התמונה שנבחרה ומציג אותה על המסך
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -177,6 +195,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    // שולח התראה למשתמש שיש טיול חדש
     private void sendNewHikeNotification() {
         String channelId = "hike_channel";
 

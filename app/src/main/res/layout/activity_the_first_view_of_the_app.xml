@@ -44,23 +44,6 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnWebsiteReview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:gravity="center"
-            android:shadowColor="#F4F4F4"
-            android:shadowDx="0"
-            android:shadowDy="2"
-            android:shadowRadius="6"
-            android:text="ביקורות"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="399dp" />
-
-        <Button
             android:id="@+id/btnLoginMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,6 +59,37 @@
             android:textStyle="bold"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="325dp" />
+
+
+        <Button
+            android:id="@+id/btnAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:gravity="center"
+            android:shadowColor="#F4F4F4"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:text="אודות"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnWebsiteReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:gravity="center"
+            android:shadowColor="#F4F4F4"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:text="ביקורות"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
