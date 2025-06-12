@@ -135,7 +135,7 @@ public class AddAttraction extends AppCompatActivity implements View.OnClickList
         String imageBase64 = ImageUtil.convertTo64Base(ivPreviewImage);
 
         // בודק אם כל השדות מלאים
-        if (attractionName.isEmpty() || attractionDetails.isEmpty() || attractionCapacityString.isEmpty()) {
+        if (attractionName.isEmpty() || attractionDetails.isEmpty() || attractionCapacityString.isEmpty() || imageBase64 == null) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
         } else {
             // יוצר מזהה חדש ושומר את האטרקציה למסד נתונים

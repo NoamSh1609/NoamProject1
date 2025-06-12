@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.util.Base64;
 import android.widget.ImageView;
 
@@ -35,10 +36,11 @@ public class ImageUtil {
     /// Convert an image to a base64 string
     /// @param postImage The image to convert
     /// @return The base64 string representation of the image
-    public static @Nullable String convertTo64Base(@NotNull final ImageView postImage) {
-        if (postImage.getDrawable() == null) {
+    public static @Nullable String convertTo64Base(@Nullable final ImageView postImage) {
+        if (postImage == null || postImage.getDrawable() == null) {
             return null;
         }
+        if (postImage.getDrawable() instanceof VectorDrawable) return null;
         Bitmap bitmap = ((BitmapDrawable) postImage.getDrawable()).getBitmap();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
